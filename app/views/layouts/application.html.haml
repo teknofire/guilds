@@ -1,0 +1,44 @@
+!!!
+%html{ data: { bs: { "theme" => "dark" } } }
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title= content_for(:title) || "Craft Requests"
+    %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
+    %meta{:content => "yes", :name => "apple-mobile-web-app-capable"}/
+    %meta{:content => "yes", :name => "mobile-web-app-capable"}/
+    = csrf_meta_tags
+    = csp_meta_tag
+    = yield :head
+    %link{:href => "/icon.png", :rel => "icon", :type => "image/png"}/
+    %link{:href => "/icon.svg", :rel => "icon", :type => "image/svg+xml"}/
+    %link{:href => "/icon.png", :rel => "apple-touch-icon"}/
+    = stylesheet_link_tag :app, "data-turbo-track": "reload"
+    = javascript_include_tag "application", "data-turbo-track": "reload", type: "module"
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+  %body
+    .container-fluid
+      %nav.navbar.navbar-expand-lg.mb-3.bg-body-tertiary
+        .container
+          %a.navbar-brand{href: root_path} Guild Stuff
+          %button.navbar-toggler{"aria-controls" => "navbarNav", "aria-expanded" => "false", "aria-label" => "Toggle navigation", data: { bs_toggle: "collapse", bs_target: "#navbarNav" }, type: "button"}
+            %span.navbar-toggler-icon
+          #navbarNav.collapse.navbar-collapse
+            %ul.navbar-nav.mr-auto
+              - { ledger: ledgers_path, items: items_path, rarities: rarities_path, guilds: guilds_path, players: players_path }.each do |name,path|
+                %li.nav-item
+                  = link_to name.capitalize, path, class: "nav-link"
+
+              %li.nav-item 
+                - if user_signed_in?
+                  -# = link_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link'
+                - else 
+                  = link_to 'Login', new_user_session_path, class: 'nav-link'
+    .container
+
+      - flash.each do |key, message|
+        .alert.alert-dismissible.fade.show.mt-3{ class: flash_class(key), role:"alert" }
+          = message
+          %button.close{ type:"button", data: { dismiss:"alert" }, aria: { label:"Close" } }
+            %span{ aria: { hidden:"true" } } &times;
+
+      = yield

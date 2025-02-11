@@ -1,0 +1,34 @@
+.float-end
+  = link_to 'Edit', edit_player_path(@player), class: 'btn btn-secondary'
+  = link_to 'Back', players_path, class: 'btn btn-primary'
+
+%h1= @player.name
+%p
+  %b Guild:
+  = @player.guild&.name
+%p
+  %b Points:
+  = @player.points
+
+%h2 Ledger Logs 
+%div{ data: { controller: "datatables" } }
+  %table.table.table-striped.border{ data: { datatables: { target: 'table' } } }
+    %thead
+      %tr
+        %th Item
+        %th Qty
+        %th Rarity
+        %th Action
+        %th Modifier
+        %th Points
+        %th Timestamp
+    %tbody
+      - @player.ledgers.each do |ledger|
+        %tr
+          %td= ledger.item
+          %td= ledger.qty
+          %td= ledger.rarity
+          %td= ledger.action
+          %td= ledger.modifier
+          %td= ledger.points
+          %td= ledger.updated_at

@@ -1,0 +1,17 @@
+= form_for @guild do |f|
+  - if @guild.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@guild.errors.count, "error")} prohibited this guild from being saved:"
+      %ul
+        - @guild.errors.full_messages.each do |message|
+          %li= message
+
+  .form-group
+    = f.label :name
+    = f.text_field :name, class: 'form-control'
+  .form-group
+    = f.label 'Parent Guild'
+    = f.select :parent_guild_id, options_from_collection_for_select(Guild.all, :id, :name, @guild.parent_guild_id), { include_blank: true }, class: 'form-control'
+  .form-group.mt-2
+    = link_to 'Back', :back, class: 'btn btn-secondary'
+    = f.submit 'Save', class: 'btn btn-primary'

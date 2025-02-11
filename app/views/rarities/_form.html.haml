@@ -1,0 +1,16 @@
+= form_for @rarity do |f|
+  - if @rarity.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@rarity.errors.count, "error")} prohibited this rarity from being saved:"
+      %ul
+        - @rarity.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :modifier
+    = f.text_field :modifier
+  .actions
+    = f.submit 'Save'

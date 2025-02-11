@@ -1,0 +1,22 @@
+.float-end
+  = link_to 'New Rarity', new_rarity_path, class: 'btn btn-success'
+%h1 Listing rarities
+
+%table.table.table-striped.border
+  %thead
+    %tr
+      %th Name
+      %th Modifier
+      %th
+
+  %tbody
+    - @rarities.each do |rarity|
+      %tr
+        %td= rarity.name
+        %td= rarity.modifier
+        %td.text-end
+          .btn-group
+            = link_to 'Show', rarity, class: 'btn btn-primary'
+            = link_to 'Edit', edit_rarity_path(rarity), class: 'btn btn-secondary'
+            = link_to 'Destroy', rarity, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
+

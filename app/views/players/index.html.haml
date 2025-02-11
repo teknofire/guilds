@@ -1,0 +1,25 @@
+%h1 Listing players
+
+%table.table.table-striped.border
+  %thead
+    %tr
+      %th Name
+      %th Guild
+      %th Points
+      %th
+
+  %tbody
+    - @players.each do |player|
+      %tr
+        %td= player.name
+        %td= player.guild&.name
+        %td= player.points
+        %td.text-end
+          .btn-group
+            = link_to 'Show', player, class: 'btn btn-primary'
+            = link_to 'Edit', edit_player_path(player), class: 'btn btn-secondary'
+            = link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
+
+%br
+
+= link_to 'New Player', new_player_path

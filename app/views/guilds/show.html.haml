@@ -1,0 +1,20 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @guild.name
+- if @guild.parent_guild.present?
+  %p
+    %b Parent Guild:
+    = link_to @guild.parent_guild.name, @guild.parent_guild
+- if @guild.child_guilds.any?
+  %p
+    %b Child Guilds:
+    %ul
+      - @guild.child_guilds.each do | child |
+        %li= link_to child.name, child
+
+
+= link_to 'Edit', edit_guild_path(@guild)
+\|
+= link_to 'Back', guilds_path

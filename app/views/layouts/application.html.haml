@@ -16,23 +16,22 @@
     = javascript_include_tag "application", "data-turbo-track": "reload", type: "module"
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
   %body
-    .container-fluid
-      %nav.navbar.navbar-expand-lg.mb-3.bg-body-tertiary
-        .container-fluid
-          %a.navbar-brand{href: root_path} Guild Stuff
-          %button.navbar-toggler{"aria-controls" => "navbarNav", "aria-expanded" => "false", "aria-label" => "Toggle navigation", data: { bs_toggle: "collapse", bs_target: "#navbarNav" }, type: "button"}
-            %span.navbar-toggler-icon
-          #navbarNav.collapse.navbar-collapse
-            %ul.navbar-nav.me-auto.mb-2.mb-lg-0
-              - { ledger: ledgers_path, items: items_path, rarities: rarities_path, guilds: guilds_path, players: players_path }.each do |name,path|
-                %li.nav-item
-                  = link_to name.capitalize, path, class: "nav-link"
-            %ul.navbar-nav.d-flex
-              %li.nav-item.me-2
-                - if user_signed_in?
-                  = link_to 'Logout', destroy_user_session_path, data: { turbo_method: :delete }, class: 'nav-link'
-                - else 
-                  = link_to 'Login', new_user_session_path, class: 'nav-link'
+    %nav.navbar.navbar-expand-lg.mb-3.bg-body-tertiary
+      .container-fluid
+        %a.navbar-brand{href: root_path} Guild Stuff
+        %button.navbar-toggler{"aria-controls" => "navbarNav", "aria-expanded" => "false", "aria-label" => "Toggle navigation", data: { bs_toggle: "collapse", bs_target: "#navbarNav" }, type: "button"}
+          %span.navbar-toggler-icon
+        #navbarNav.collapse.navbar-collapse
+          %ul.navbar-nav.me-auto.mb-2.mb-lg-0
+            - { ledger: ledgers_path, items: items_path, rarities: rarities_path, guilds: guilds_path, players: players_path }.each do |name,path|
+              %li.nav-item
+                = link_to name.capitalize, path, class: "nav-link"
+          %ul.navbar-nav.d-flex
+            %li.nav-item.me-2
+              - if user_signed_in?
+                = link_to 'Logout', destroy_user_session_path, data: { turbo_method: :delete }, class: 'nav-link'
+              - else 
+                = link_to 'Login', new_user_session_path, class: 'nav-link'
     .container
       - flash.each do |key, message|
         .alert.alert-dismissible.fade.show.mt-3{ class: flash_class(key), role:"alert" }

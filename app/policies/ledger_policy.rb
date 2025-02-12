@@ -17,6 +17,14 @@ class LedgerPolicy < ApplicationPolicy
     user&.admin?
   end
 
+  def deposit?
+    user&.admin? || user&.manager
+  end
+
+  def withdraw?
+    user&.admin? || user&.manager
+  end
+
   def destroy?
     user&.admin?
   end

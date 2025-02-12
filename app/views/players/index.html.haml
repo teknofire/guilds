@@ -4,27 +4,25 @@
 
 %h1 Listing players
 
-%table.table.table-striped.border
-  %thead
-    %tr
-      %th Name
-      %th Guild
-      %th Points
-      - if policy(:player).modify?
-        %th
-
-  %tbody
-    - @players.each do |player|
+%div{ data: { controller: 'datatables', datatables_order_value: [0, 'asc'] } }
+  %table.table.table-striped.border{ data: { datatables: { target: 'table' } } }
+    %thead
       %tr
-        %td= player.name
-        %td= player.guild&.name
-        %td= player.points
-        - if policy(:player).modify?
-          %td.text-end
-            .btn-group
-              = link_to 'Show', player, class: 'btn btn-primary' if policy(player).show?
-              = link_to 'Edit', edit_player_path(player), class: 'btn btn-secondary' if policy(player).update?
-              = link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' if policy(player).destroy?
+        %th Name
+        %th Guild
+        %th Points
+        - if policy(:player).any?
+          %th
 
-%br
-
+    %tbody
+      - @players.each do |player|
+        %tr
+          %td= player.name
+          %td= player.guild&.name
+          %td= player.points
+          - if policy(:player).any?
+            %td.text-end
+              .btn-group
+                = link_to 'Show', player, class: 'btn btn-primary' if policy(player).show?
+                = link_to 'Edit', edit_player_path(player), class: 'btn btn-secondary' if policy(player).update?
+                = link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' if policy(player).destroy?

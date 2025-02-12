@@ -9,7 +9,7 @@ class ApplicationPolicy
   end
 
   def index?
-    false
+    true
   end
 
   def show?
@@ -36,8 +36,8 @@ class ApplicationPolicy
     false
   end
 
-  def modify?
-    create? || update? || destroy?
+  def any?
+    show? || create? || update? || destroy?
   end
 
   class Scope

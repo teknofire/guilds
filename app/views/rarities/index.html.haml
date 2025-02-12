@@ -9,7 +9,7 @@
     %tr
       %th Name
       %th Modifier
-      - if policy(:rarity).modify?
+      - if policy(:rarity).any?
         %th
 
   %tbody
@@ -17,7 +17,7 @@
       %tr
         %td= rarity.name
         %td= rarity.modifier
-        - if policy(:rarity).modify?
+        - if policy(:rarity).any?
           %td.text-end
             .btn-group
               = link_to 'Show', rarity, class: 'btn btn-primary' if policy(rarity).show?

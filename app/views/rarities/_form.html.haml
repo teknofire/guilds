@@ -6,11 +6,12 @@
         - @rarity.errors.full_messages.each do |message|
           %li= message
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :modifier
-    = f.text_field :modifier
-  .actions
-    = f.submit 'Save'
+  .form-group
+    = f.label :name, class: 'form-label'
+    = f.text_field :name, class: 'form-control'
+  .form-group
+    = f.label :modifier, class: 'form-label'
+    = f.text_field :modifier, class: 'form-control'
+  .form-group.mt-3
+    = link_to 'Back', :back, class: 'btn btn-secondary'
+    = f.submit 'Save', class: 'btn btn-primary'

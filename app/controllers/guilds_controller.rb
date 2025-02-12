@@ -3,7 +3,7 @@ class GuildsController < ApplicationController
 
   # GET /guilds or /guilds.json
   def index
-    @guilds = Guild.all
+    @guilds = authorize Guild.all
   end
 
   # GET /guilds/1 or /guilds/1.json
@@ -12,7 +12,7 @@ class GuildsController < ApplicationController
 
   # GET /guilds/new
   def new
-    @guild = Guild.new
+    @guild = authorize Guild.new
   end
 
   # GET /guilds/1/edit
@@ -21,7 +21,7 @@ class GuildsController < ApplicationController
 
   # POST /guilds or /guilds.json
   def create
-    @guild = Guild.new(guild_params)
+    @guild = authorize Guild.new(guild_params)
 
     respond_to do |format|
       if @guild.save
@@ -60,7 +60,7 @@ class GuildsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_guild
-      @guild = Guild.find(params.expect(:id))
+      @guild = authorize Guild.find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.

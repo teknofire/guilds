@@ -3,7 +3,7 @@ class PlayersController < ApplicationController
 
   # GET /players or /players.json
   def index
-    @players = Player.all
+    @players = authorize Player.all
   end
 
   # GET /players/1 or /players/1.json
@@ -12,7 +12,7 @@ class PlayersController < ApplicationController
 
   # GET /players/new
   def new
-    @player = Player.new
+    @player = authorize Player.new
   end
 
   # GET /players/1/edit
@@ -21,7 +21,7 @@ class PlayersController < ApplicationController
 
   # POST /players or /players.json
   def create
-    @player = Player.new(player_params)
+    @player = authorize Player.new(player_params)
 
     respond_to do |format|
       if @player.save
@@ -60,7 +60,7 @@ class PlayersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_player
-      @player = Player.friendly.find(params.expect(:id))
+      @player = authorize Player.friendly.find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.

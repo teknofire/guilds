@@ -5,13 +5,13 @@
 %h1 Listing items
 
 %div{ data: { controller: 'datatables' } }
-  %table.table.table-striped.border{ data: { datatables: { arget: 'table' } } }
+  %table.table.table-striped.border{ data: { datatables: { target: 'table' } } }
     %thead
       %tr
         %th Name
         %th Modifier
         %th Quantity
-        - if policy(:item).modify?
+        - if policy(:item).any?
           %th
 
     %tbody
@@ -20,7 +20,7 @@
           %td= item.name
           %td= item.modifier
           %td= item.quantity
-          - if policy(:item).modify?
+          - if policy(:item).any?
             %td.text-end
               .btn-group
                 = link_to 'Show', item, class: 'btn btn-primary' if policy(item).show?

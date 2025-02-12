@@ -10,7 +10,7 @@
       %th Name
       %th Parent Guild
       %th Players
-      - if policy(:guild).modify?
+      - if policy(:guild).any?
         %th
 
   %tbody
@@ -19,7 +19,7 @@
         %td= guild.name
         %td= guild.parent_guild&.name
         %td= guild.players.count
-        - if policy(:guild).modify?
+        - if policy(:guild).any?
           %td.text-end
             .btn-group
               = link_to 'Show', guild, class: 'btn btn-primary' if policy(guild).show?

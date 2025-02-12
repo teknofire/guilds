@@ -8,7 +8,7 @@
 = turbo_frame_tag 'ledgers' 
 
 %div{ data: { controller: 'datatables', datatables: { order_value: [7, 'desc'] } } }
-  %table.table.table-striped.border{ data: { datatables: { target: 'table' } } }
+  %table#ledger.table.table-striped.border{ data: { datatables: { target: 'table' } } }
     %thead
       %tr
         %th Player
@@ -19,7 +19,7 @@
         %th Modifier
         %th Points
         %th Timestamp
-        - if policy(:ledger).modify?
+        - if policy(:ledger).any?
           %th
 
     %tbody
@@ -33,7 +33,7 @@
           %td= ledger.modifier
           %td= ledger.points
           %td= ledger.updated_at
-          - if policy(:ledger).modify?
+          - if policy(:ledger).any?
             %td.text-end
               .btn-group
                 = link_to 'Show', ledger, class: 'btn btn-primary' if policy(ledger).show?

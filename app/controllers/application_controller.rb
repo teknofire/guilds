@@ -3,4 +3,6 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
 
   include Pundit::Authorization
+  after_action :verify_authorized
+
 end

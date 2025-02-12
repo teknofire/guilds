@@ -1,13 +1,9 @@
 class LedgersController < ApplicationController
   before_action :set_ledger, only: %i[ show edit update destroy ]
-  # before_action :authenticate_user!
-
-  include Pundit::Authorization
-  after_action :verify_authorized, except: %i[index show]
 
   # GET /ledgers or /ledgers.json
   def index
-    @ledgers = Ledger.order(updated_at: :desc).all
+    @ledgers = authorize Ledger.order(updated_at: :desc).all
   end
 
   # GET /ledgers/1 or /ledgers/1.json
@@ -16,7 +12,7 @@ class LedgersController < ApplicationController
 
   # GET /ledgers/new
   def new
-    @ledger = Ledger.new
+    @ledger = authorize Ledger.new
   end
 
   # GET /ledgers/1/edit
@@ -24,18 +20,18 @@ class LedgersController < ApplicationController
   end
 
   def deposit
-    @ledger = Ledger.new(action: 'deposit')
+    @ledger = authorize Ledger.new(action: 'deposit')
     render :new
   end
 
   def withdraw
-    @ledger = Ledger.new(action: 'withdraw')
+    @ledger = authorize Ledger.new(action: 'withdraw')
     render :new
   end
 
   # POST /ledgers or /ledgers.json
   def create
-    @ledger = Ledger.new(ledger_params)
+    @ledger = authorize Ledger.new(ledger_params)
 
     respond_to do |format|
       if @ledger.save
@@ -74,7 +70,7 @@ class LedgersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ledger
-      @ledger = Ledger.find(params.expect(:id))
+      @ledger = authorize Ledger.find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.

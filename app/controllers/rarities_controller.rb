@@ -3,7 +3,7 @@ class RaritiesController < ApplicationController
 
   # GET /rarities or /rarities.json
   def index
-    @rarities = Rarity.order(:modifier).all
+    @rarities = authorize Rarity.order(:modifier).all
   end
 
   # GET /rarities/1 or /rarities/1.json
@@ -12,7 +12,7 @@ class RaritiesController < ApplicationController
 
   # GET /rarities/new
   def new
-    @rarity = Rarity.new
+    @rarity = authorize Rarity.new
   end
 
   # GET /rarities/1/edit
@@ -21,7 +21,7 @@ class RaritiesController < ApplicationController
 
   # POST /rarities or /rarities.json
   def create
-    @rarity = Rarity.new(rarity_params)
+    @rarity = authorize Rarity.new(rarity_params)
 
     respond_to do |format|
       if @rarity.save
@@ -60,7 +60,7 @@ class RaritiesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_rarity
-      @rarity = Rarity.find(params.expect(:id))
+      @rarity = authorize Rarity.find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.

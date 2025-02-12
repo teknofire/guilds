@@ -12,7 +12,13 @@ export default class extends Controller {
   }
 
   tableTargetConnected(element) {
-    this.initializeDatatable(element)
+    this.initializeDatatable(element);
+  }
+
+  tableTargetDisconnected(element) {
+    let table = new DataTable(element, { retrieve: true });
+    table.destroy();
+
   }
 
   initializeDatatable(element) {

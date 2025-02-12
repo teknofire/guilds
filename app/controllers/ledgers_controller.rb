@@ -1,9 +1,13 @@
 class LedgersController < ApplicationController
   before_action :set_ledger, only: %i[ show edit update destroy ]
+  # before_action :authenticate_user!
+
+  include Pundit::Authorization
+  after_action :verify_authorized, except: %i[index show]
 
   # GET /ledgers or /ledgers.json
   def index
-    @ledgers = Ledger.all
+    @ledgers = Ledger.order(updated_at: :desc).all
   end
 
   # GET /ledgers/1 or /ledgers/1.json
@@ -35,7 +39,7 @@ class LedgersController < ApplicationController
 
     respond_to do |format|
       if @ledger.save
-        format.html { redirect_to @ledger, notice: "Ledger was successfully created." }
+        format.html { redirect_to ledgers_path, notice: "Ledger was successfully created." }
         format.json { render :show, status: :created, location: @ledger }
       else
         format.html { render :new, status: :unprocessable_entity }

@@ -1,5 +1,6 @@
-.float-end.mt-3 
-  = link_to 'New Guild', new_guild_path, class: 'btn btn-primary'
+- if policy(:guild).create?
+  .float-end.mb-3 
+    = link_to 'New Guild', new_guild_path, class: 'btn btn-primary'
 
 %h1 Listing guilds
 
@@ -9,7 +10,8 @@
       %th Name
       %th Parent Guild
       %th Players
-      %th
+      - if policy(:guild).modify?
+        %th
 
   %tbody
     - @guilds.each do |guild|
@@ -17,9 +19,10 @@
         %td= guild.name
         %td= guild.parent_guild&.name
         %td= guild.players.count
-        %td.text-end
-          .btn-group
-            = link_to 'Show', guild, class: 'btn btn-primary'
-            = link_to 'Edit', edit_guild_path(guild), class: 'btn btn-secondary'
-            = link_to 'Destroy', guild, turbo_method: :delete, turbo_data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
+        - if policy(:guild).modify?
+          %td.text-end
+            .btn-group
+              = link_to 'Show', guild, class: 'btn btn-primary' if policy(guild).show?
+              = link_to 'Edit', edit_guild_path(guild), class: 'btn btn-secondary' if policy(guild).update?
+              = link_to 'Destroy', guild, turbo_method: :delete, turbo_data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' if policy(guild).destroy?
 

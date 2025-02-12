@@ -1,6 +1,9 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[ show edit update destroy ]
 
+  include Pundit::Authorization
+  after_action :verify_authorized, except: %i[index show]
+
   # GET /items or /items.json
   def index
     @items = Item.all

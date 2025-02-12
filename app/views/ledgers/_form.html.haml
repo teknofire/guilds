@@ -1,4 +1,4 @@
-= form_for @ledger, class: '' do |f|
+= form_for @ledger, class: '', data: { turbo_frame: '_top' } do |f|
   - if @ledger.errors.any?
     #error_explanation
       %h2= "#{pluralize(@ledger.errors.count, "error")} prohibited this ledger from being saved:"
@@ -11,14 +11,13 @@
     .col
       = f.label :player, class: 'form-label'
       = f.select :player_id, options_from_collection_for_select(Player.all, :id, :name, @ledger.player_id), { prompt: "Choose a player" }, class: 'form-control'
-  .row.mb-3 
-    .col-md-6
+    .col
       = f.label :item, class: 'form-label'
       = f.select :item_id, options_from_collection_for_select(Item.order(:name).all, :id, :name, @ledger.item_id), { prompt: "Choose an item" }, class: 'form-control'
-    .col-md-4
+    .col
       = f.label :rarity, class: 'form-label'
-      = f.select :rarity_id, options_from_collection_for_select(Rarity.all, :id, :name, @ledger.rarity_id), { prompt: "Choose a rarity" }, class: 'form-control'
-    .col-md-2
+      = f.select :rarity_id, options_from_collection_for_select(Rarity.order(:modifier).all, :id, :name, @ledger.rarity_id), { prompt: "Choose a rarity" }, class: 'form-control'
+    .col
       = f.label 'Quantity', class: 'form-label'
       = f.number_field :qty, class: 'form-control'
   .form-group.mb-3

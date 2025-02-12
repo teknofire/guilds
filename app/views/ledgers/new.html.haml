@@ -1,6 +1,7 @@
-%h1 
-    New 
-    = @ledger.action 
-    entry
-
-= render 'form'
+= turbo_frame_tag 'ledgers' do
+    .card
+        .card-header
+            = @ledger.action.capitalize
+            entry
+        .card-body
+            = render 'form'

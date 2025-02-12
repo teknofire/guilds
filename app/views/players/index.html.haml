@@ -1,3 +1,7 @@
+- if policy(:player).create?
+  .float-end
+    = link_to 'New Player', new_player_path, class: 'btn btn-success'
+
 %h1 Listing players
 
 %table.table.table-striped.border
@@ -6,7 +10,8 @@
       %th Name
       %th Guild
       %th Points
-      %th
+      - if policy(:player).modify?
+        %th
 
   %tbody
     - @players.each do |player|
@@ -14,12 +19,12 @@
         %td= player.name
         %td= player.guild&.name
         %td= player.points
-        %td.text-end
-          .btn-group
-            = link_to 'Show', player, class: 'btn btn-primary'
-            = link_to 'Edit', edit_player_path(player), class: 'btn btn-secondary'
-            = link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
+        - if policy(:player).modify?
+          %td.text-end
+            .btn-group
+              = link_to 'Show', player, class: 'btn btn-primary' if policy(player).show?
+              = link_to 'Edit', edit_player_path(player), class: 'btn btn-secondary' if policy(player).update?
+              = link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' if policy(player).destroy?
 
 %br
 
-= link_to 'New Player', new_player_path

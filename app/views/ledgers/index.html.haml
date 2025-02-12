@@ -1,36 +1,42 @@
-.float-end.mt-2
-  = link_to 'Deposit', deposit_ledgers_path(action: 'deposit'), class: 'btn btn-success'
-  = link_to 'Withdraw', withdraw_ledgers_path(action: 'withdraw'), class: 'btn btn-primary'
+- if policy(:ledger).create?
+  .float-end.mt-2
+    = link_to 'Deposit', deposit_ledgers_path(action: 'deposit'), class: 'btn btn-success', data: { turbo_frame: 'ledgers' }
+    = link_to 'Withdraw', withdraw_ledgers_path(action: 'withdraw'), class: 'btn btn-primary', data: { turbo_frame: 'ledgers' }
 
 %h1 Listing ledgers
 
-%table.table.table-striped.border
-  %thead
-    %tr
-      %th Player
-      %th Item
-      %th Qty
-      %th Rarity
-      %th Action
-      %th Modifier
-      %th Points
-      %th Timestamp
-      %th
+= turbo_frame_tag 'ledgers' 
 
-  %tbody
-    - @ledgers.each do |ledger|
+%div{ data: { controller: 'datatables', datatables: { order_value: [7, 'desc'] } } }
+  %table.table.table-striped.border{ data: { datatables: { target: 'table' } } }
+    %thead
       %tr
-        %td= link_to ledger.player, ledger.player
-        %td= ledger.item
-        %td= ledger.qty
-        %td= ledger.rarity
-        %td= ledger.action
-        %td= ledger.modifier
-        %td= ledger.points
-        %td= ledger.updated_at
-        %td.text-end
-          .btn-group
-            = link_to 'Show', ledger, class: 'btn btn-primary'
-            = link_to 'Edit', edit_ledger_path(ledger), class: 'btn btn-secondary'
-            = link_to 'Destroy', ledger, data: { turbo_method: :delete,  turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger' 
+        %th Player
+        %th Item
+        %th Qty
+        %th Rarity
+        %th Action
+        %th Modifier
+        %th Points
+        %th Timestamp
+        - if policy(:ledger).modify?
+          %th
+
+    %tbody
+      - @ledgers.each do |ledger|
+        %tr
+          %td= link_to ledger.player, ledger.player
+          %td= ledger.item
+          %td= ledger.qty
+          %td= ledger.rarity
+          %td= ledger.action
+          %td= ledger.modifier
+          %td= ledger.points
+          %td= ledger.updated_at
+          - if policy(:ledger).modify?
+            %td.text-end
+              .btn-group
+                = link_to 'Show', ledger, class: 'btn btn-primary' if policy(ledger).show?
+                = link_to 'Edit', edit_ledger_path(ledger), class: 'btn btn-secondary' if policy(ledger).update?
+                = link_to 'Delete', ledger, data: { turbo_method: :delete,  turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger' if policy(ledger).destroy?
 

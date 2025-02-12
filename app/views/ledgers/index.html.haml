@@ -1,5 +1,5 @@
 - if policy(:ledger).create?
-  .float-end.mt-2
+  .float-end.mb-3
     = link_to 'Deposit', deposit_ledgers_path(action: 'deposit'), class: 'btn btn-success', data: { turbo_frame: 'ledgers' }
     = link_to 'Withdraw', withdraw_ledgers_path(action: 'withdraw'), class: 'btn btn-primary', data: { turbo_frame: 'ledgers' }
 

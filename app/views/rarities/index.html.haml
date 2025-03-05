@@ -1,0 +1,26 @@
+- if policy(:rarity).create?
+  .float-end.mb-3
+    = link_to 'New Rarity', new_rarity_path, class: 'btn btn-success'
+
+%h1 Listing rarities
+
+%table.table.table-striped.border
+  %thead
+    %tr
+      %th Name
+      %th Modifier
+      - if policy(:rarity).any?
+        %th
+
+  %tbody
+    - @rarities.each do |rarity|
+      %tr
+        %td= rarity.name
+        %td= rarity.modifier
+        - if policy(:rarity).any?
+          %td.text-end
+            .btn-group
+              = link_to 'Show', rarity, class: 'btn btn-primary' if policy(rarity).show?
+              = link_to 'Edit', edit_rarity_path(rarity), class: 'btn btn-secondary' if policy(rarity).update?
+              = link_to 'Destroy', rarity, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' if policy(rarity).destroy?
+

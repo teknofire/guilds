@@ -1,0 +1,29 @@
+- if policy(:player).create?
+  .float-end.mb-3
+    = link_to 'New Player', new_player_path, class: 'btn btn-success', data: { turbo_frame: 'form' }
+
+%h1 Listing players
+
+= turbo_frame_tag 'form'
+
+%div{ data: { controller: 'datatables', datatables_order_value: [0, 'asc'] } }
+  %table.table.table-striped.border{ data: { datatables: { target: 'table' } } }
+    %thead
+      %tr
+        %th Name
+        %th Guild
+        %th Points
+        - if policy(:player).any?
+          %th
+
+    %tbody
+      - @players.each do |player|
+        %tr
+          %td= player.name
+          %td= player.guild&.name
+          %td= player.points
+          - if policy(:player).any?
+            %td.text-end
+              .btn-group
+                = link_to 'View', player, class: 'btn btn-primary' if policy(player).show?
+                = link_to 'Delete', player, data: { turbo_method: :delete,  turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger' if policy(player).destroy?

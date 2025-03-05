@@ -1,0 +1,47 @@
+.row
+  .col-md-3
+    %h1 Listing ledgers
+    - if policy(:ledger).ledger?
+      .d-grid.mb-3
+        .btn-group
+          - if policy(:ledger).deposit?
+            = link_to 'Deposit', deposit_ledgers_path(action: 'deposit'), class: 'btn btn-success', data: { turbo_frame: 'form' } 
+          - if policy(:ledger).withdraw?
+            = link_to 'Withdraw', withdraw_ledgers_path(action: 'withdraw'), class: 'btn btn-primary', data: { turbo_frame: 'form' }
+
+    = turbo_frame_tag 'form' 
+
+  .col-md-9
+
+    %div{ data: { controller: 'datatables', datatables: { order_value: [7, 'desc'] } } }
+      %table#ledger.table.table-striped.border{ data: { datatables: { target: 'table' } } }
+        %thead
+          %tr
+            %th Player
+            %th Item
+            %th Qty
+            %th Rarity
+            %th Action
+            %th Modifier
+            %th Points
+            %th Timestamp
+            - if policy(:ledger).any?
+              %th
+
+        %tbody
+          - @ledgers.each do |ledger|
+            %tr
+              %td= link_to ledger.player, ledger.player
+              %td= ledger.item
+              %td= ledger.qty
+              %td= ledger.rarity
+              %td= ledger.action
+              %td= ledger.modifier
+              %td= ledger.points
+              %td= ledger.updated_at
+              - if policy(:ledger).any?
+                %td.text-end
+                  .btn-group
+                    = link_to 'Edit', edit_ledger_path(ledger), class: 'btn btn-secondary' if policy(ledger).update?
+                    = link_to 'Delete', ledger, data: { turbo_method: :delete,  turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger' if policy(ledger).destroy?
+

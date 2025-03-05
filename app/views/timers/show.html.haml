@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @timer.name
+%p
+  %b Starts at:
+  = @timer.starts_at
+%p
+  %b User:
+  = @timer.user
+%p
+  %b Public:
+  = @timer.public
+%p
+  %b Description:
+  = @timer.description
+
+= link_to 'Edit', edit_timer_path(@timer)
+\|
+= link_to 'Back', timers_path

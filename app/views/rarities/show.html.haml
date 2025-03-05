@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @rarity.name
+%p
+  %b Modifier:
+  = @rarity.modifier
+
+= link_to 'Edit', edit_rarity_path(@rarity)
+\|
+= link_to 'Back', rarities_path

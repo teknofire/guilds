@@ -1,0 +1,8 @@
+%h1= @user.name
+%p
+    %b Admin?:
+    = @user.admin? ? 'Yes' : 'No'
+%p
+    %b Ledger Manager?:
+    = @user.manager? ? 'Yes' : 'No'
+

@@ -1,0 +1,17 @@
+= form_for @item do |f|
+  - if @item.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@item.errors.count, "error")} prohibited this item from being saved:"
+      %ul
+        - @item.errors.full_messages.each do |message|
+          %li= message
+
+  .form-group
+    = f.label :name
+    = f.text_field :name, class: 'form-control'
+  .form-group
+    = f.label :modifier
+    = f.text_field :modifier, class: 'form-control'
+  .form-group.mt-2
+    = link_to 'Back', :back, class: 'btn btn-secondary'
+    = f.submit 'Save', class: 'btn btn-primary'

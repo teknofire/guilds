@@ -1,0 +1,11 @@
+.row 
+    .col-md-3 
+        = render @user
+        .d-grid 
+            = link_to users_path, class: 'btn btn-primary mb-3' do 
+                %i.bi.bi-arrow-left
+                Back
+            = link_to edit_user_path(@user), class: 'btn btn-secondary mb-3' do 
+                %i.bi.bi-pencil
+                Edit
+    .col-md-9

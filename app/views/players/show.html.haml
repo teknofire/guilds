@@ -1,0 +1,56 @@
+.row 
+  .col-md-3
+    %h1= @player.name
+    %p
+      %b Guild:
+      = @player.guild&.name
+    %p
+      %b Points:
+      = @player.points
+    .d-grid.mb-3
+      = link_to players_path, class: 'btn btn-primary mb-3' do 
+        %i.bi.bi-arrow-left
+        Back
+      - if policy(@player).edit?
+        = link_to edit_player_path(@player), class: 'btn btn-secondary mb-3' do 
+          %i.bi.bi-pencil
+          Edit
+      - if policy(:Ledger).ledger?
+        .btn-group
+          - if policy(:Ledger).deposit?
+            = link_to deposit_player_ledgers_path(@player, action: 'deposit'), class: 'btn btn-success', data: { turbo_frame: 'form' } do 
+              %i.bi.bi-box-arrow-in-down 
+              Deposit
+          - if policy(:Ledger).withdraw?
+            = link_to withdraw_player_ledgers_path(@player, action: 'withdraw'), class: 'btn btn-primary', data: { turbo_frame: 'form' } do 
+              %i.bi.bi-box-arrow-up 
+              Withdraw
+
+      = turbo_frame_tag 'form'
+
+  .col-md-9
+   
+    %h2.clearfix Ledger Logs 
+
+
+    %div{ data: { controller: "datatables", datatables: { order_value: [6, 'desc'] }} }
+      %table.table.table-striped.border{ data: { datatables: { target: 'table' } } }
+        %thead
+          %tr
+            %th Item
+            %th Qty
+            %th Rarity
+            %th Action
+            %th Modifier
+            %th Points
+            %th Timestamp
+        %tbody
+          - @player.ledgers.each do |ledger|
+            %tr
+              %td= ledger.item
+              %td= ledger.qty
+              %td= ledger.rarity
+              %td= ledger.action
+              %td= ledger.modifier
+              %td= ledger.points
+              %td= ledger.updated_at

@@ -1,0 +1,13 @@
+services:
+  db:
+    container_name: crdb
+    image: postgres:latest
+    ports:
+      - "127.0.0.1:5435:5432"
+
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+volumes:
+  pgdata:

@@ -1,0 +1,26 @@
+.float-end.mt-3
+  = link_to 'Edit', edit_ledger_path(@ledger), class: 'btn btn-secondary'
+  = link_to 'Back', ledgers_path, class: 'btn btn-primary'
+
+
+%h1= @ledger.player
+
+%p
+  %b Item:
+  = @ledger.item
+%p
+  %b Qty:
+  = @ledger.qty
+%p
+  %b Rarity:
+  = @ledger.rarity
+%p
+  %b Action:
+  = @ledger.action
+%p
+  %b Modifier:
+  = @ledger.modifier
+%p
+  %b Points:
+  = @ledger.points
+

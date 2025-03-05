@@ -1,0 +1,19 @@
+= form_for @player, class: 'row row-cols-lg-auto', data: { turbo_frame: '_top' } do |f|
+  - if @player.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@player.errors.count, "error")} prohibited this player from being saved:"
+      %ul
+        - @player.errors.full_messages.each do |message|
+          %li= message
+  .row
+    .col-md-5
+      .form-group
+        = f.text_field :name, class: 'form-control', placeholder: 'Name'
+    .col-md-5
+      .form-group
+        = f.select :guild_id, options_from_collection_for_select(Guild.all, :id, :name, @player.guild_id), { prompt: 'Select a guild' }, class: 'form-select'
+    .col-md-2
+      .form-group.d-grid
+        .btn-group
+          = link_to 'Cancel', :back, class: 'btn btn-secondary'
+          = f.submit 'Save', class: 'btn btn-primary'

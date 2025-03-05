@@ -1,0 +1,28 @@
+= form_for @ledger, class: '', data: { turbo_frame: '_top' } do |f|
+  - if @ledger.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@ledger.errors.count, "error")} prohibited this ledger from being saved:"
+      %ul
+        - @ledger.errors.full_messages.each do |message|
+          %li= message
+
+  - if @player 
+    = f.hidden_field :player_id
+
+  = f.hidden_field :action
+  - if !@player
+    = f.label :player, class: 'form-label'
+    = f.select :player_id, options_from_collection_for_select(Player.all, :id, :name, @ledger.player_id), { prompt: "Choose a player" }, class: 'form-control'
+  .form-group
+    = f.label :item, class: 'form-label'
+    = f.select :item_id, options_from_collection_for_select(Item.order(:name).all, :id, :name, @ledger.item_id), { prompt: "Choose an item" }, class: 'form-control'
+  .form-group
+    = f.label :rarity, class: 'form-label'
+    = f.select :rarity_id, options_from_collection_for_select(Rarity.order(:modifier).all, :id, :name, @ledger.rarity_id), { prompt: "Choose a rarity" }, class: 'form-control'
+  .form-group.mb-3
+    = f.label 'Quantity', class: 'form-label'
+    = f.number_field :qty, class: 'form-control'
+  .form-group.text-end.d-grid
+    .btn-group
+      = link_to 'Cancel', :back, class: 'btn btn-secondary'
+      = f.submit 'Save', class: 'btn btn-primary'

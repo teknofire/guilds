@@ -1,0 +1,21 @@
+%h1 Users 
+
+%table.table.table-striped.border
+  %thead
+    %tr
+      %th Name
+      %th Admin?
+      %th Ledger Manager?
+      - if policy(:user).any?
+        %th
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= user.name
+        %td= user.admin? ? 'Yes' : 'No'
+        %td= user.manager? ? 'Yes' : 'No'
+        - if policy(:user).any?
+          %td.text-end
+            .btn-group
+              = link_to 'View', user_path(user), class: 'btn btn-secondary' if policy(user).update?
+              = link_to 'Delete', user, data: { turbo_method: :delete,  turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger' if policy(user).destroy?

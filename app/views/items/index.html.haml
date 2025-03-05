@@ -1,0 +1,29 @@
+- if policy(:item).create?
+  .float-end.mb-3
+    = link_to 'New Item', new_item_path, class: 'btn btn-success'
+
+%h1 Listing items
+
+%div{ data: { controller: 'datatables' } }
+  %table.table.table-striped.border{ data: { datatables: { target: 'table' } } }
+    %thead
+      %tr
+        %th Name
+        %th Modifier
+        %th Quantity
+        - if policy(:item).any?
+          %th
+
+    %tbody
+      - @items.each do |item|
+        %tr
+          %td= item.name
+          %td= item.modifier
+          %td= item.quantity
+          - if policy(:item).any?
+            %td.text-end
+              .btn-group
+                = link_to 'Show', item, class: 'btn btn-primary' if policy(item).show?
+                = link_to 'Edit', edit_item_path(item), class: 'btn btn-secondary' if policy(item).update?
+                = link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' if policy(item).destroy?
+

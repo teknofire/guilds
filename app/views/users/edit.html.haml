@@ -1,0 +1,11 @@
+.row 
+    .col-md-3 
+        = render @user 
+        .d-grid 
+            = link_to users_path, class: 'btn btn-primary mb-3' do 
+                %i.bi.bi-arrow-left 
+                Back 
+    .col-md-9
+        .card 
+            .card-body
+                = render 'form'

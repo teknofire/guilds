@@ -64,7 +64,7 @@ group :test do
 end
 
 gem "friendly_id", "~> 5.5"
-gem "dotenv-rails", "~> 3.1"
+gem "dotenv-rails", "~> 3.1", group: :dev
 gem "haml-rails", "~> 2.1"
 gem "omniauth", "~> 2.1"
 gem "omniauth-discord", "~> 1.2"

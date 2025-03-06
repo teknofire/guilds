@@ -1,0 +1,25 @@
+%p#notice= notice
+
+%p
+  %b Guid:
+  = @ashes_item.guid
+%p
+  %b Name: 
+  = @ashes_item.name
+%p
+  %b Description:
+  .ms-4
+    != @ashes_item.description
+.card
+  %h4.card-header Raw Data:
+  .card-body 
+    - @ashes_item.data.each do |key, value|
+      .row 
+        .col-3.text-end
+          %b= key
+        .col-9
+          != ap value, plain: true
+
+= link_to 'Edit', edit_ashes_item_path(@ashes_item)
+\|
+= link_to 'Back', ashes_items_path

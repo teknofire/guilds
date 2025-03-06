@@ -77,3 +77,5 @@ gem "html2haml", "~> 2.3", group: :dev
 gem "jsbundling-rails", "~> 1.3"
 
 gem "cssbundling-rails", "~> 1.4"
+
+gem "awesome_print", "~> 1.9"

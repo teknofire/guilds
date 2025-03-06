@@ -1,8 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: Parent
+  guid: MyString
+  data: 
 
 two:
-  name: Child
-  parent_guild: one
+  guid: MyString
+  data: 

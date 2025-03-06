@@ -9,8 +9,14 @@ class ApplicationController < ActionController::Base
   include Pundit::Authorization
   after_action :verify_authorized
 
+rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
+
+  def user_not_authorized
+    flash[:error] = "You are not authorized to perform this action."
+    redirect_to(request.referrer || root_path)
+  end
 
   def user_has_timezone?
     current_user && current_user.timezone.present?

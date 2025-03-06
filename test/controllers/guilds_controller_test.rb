@@ -2,6 +2,7 @@ require "test_helper"
 
 class GuildsControllerTest < ActionDispatch::IntegrationTest
   setup do
+    sign_in_admin
     @guild = guilds(:one)
   end
 

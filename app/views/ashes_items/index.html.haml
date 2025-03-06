@@ -1,0 +1,24 @@
+%h1 Listing ashes_items
+
+%div{ data: { controller: "datatables" }}
+  %table.table.table-stripped.border{ data: { datatables_target: 'table' }}
+    %thead
+      %tr
+        %th Guid
+        %th Name
+        %th Type
+        %th subType
+        %th
+
+    %tbody
+      - @ashes_items.each do |ashes_item|
+        %tr
+          %td= ashes_item.guid
+          %td= ashes_item.itemName
+          %td= ashes_item.inventoryFilterType
+          %td= ashes_item.subType
+          %td= link_to 'Show', ashes_item
+
+%br
+
+= link_to 'New Ashes item', new_ashes_item_path

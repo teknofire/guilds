@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :ashes_items
   devise_for :users, controllers: {
     registrations: "users/registrations",
     sessions: "users/sessions",

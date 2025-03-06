@@ -64,7 +64,7 @@ group :test do
 end
 
 gem "friendly_id", "~> 5.5"
-gem "dotenv-rails", "~> 3.1", group: :dev
+gem "dotenv-rails", "~> 3.1", group: :development
 gem "haml-rails", "~> 2.1"
 gem "omniauth", "~> 2.1"
 gem "omniauth-discord", "~> 1.2"
@@ -72,7 +72,7 @@ gem "omniauth-rails_csrf_protection", "~> 1.0"
 gem "devise", "~> 4.9"
 gem "pundit", "~> 2.5"
 
-gem "html2haml", "~> 2.3", group: :dev
+gem "html2haml", "~> 2.3", group: :development
 
 gem "jsbundling-rails", "~> 1.3"
 

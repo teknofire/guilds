@@ -3,7 +3,6 @@ class Timer < ApplicationRecord
 
   validates :name, presence: true
   validates :starts_at, presence: true
-  validates :description, presence: true
 
   def elapsed 
     (Time.now - self.starts_at).seconds

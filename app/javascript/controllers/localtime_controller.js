@@ -32,16 +32,31 @@ export default class extends Controller {
   }
 
   updateTimes() {
-    const now = new Date().getTime()
     if (this.hasDurationValue) {
-      const remaining = Math.floor((this.endTime - now) / 1000)
-      if (remaining <= 0) {
-        this.elapsedTarget.textContent = "00:00:00"
-        clearInterval(this.intervalId)
-      }
-      this.elapsedTarget.textContent = this.formatTime(remaining)
+      this.showRemaining(this.endTime)
     } else {
-      const elapsed = Math.floor((now - this.startTime) / 1000)
+      this.showElapsed(this.startTime)
+    }
+  }
+
+  showRemaining(time) {
+    const now = new Date().getTime()
+    const remaining = Math.floor((time - now) / 1000)
+    if (remaining <= 0) {
+      this.elapsedTarget.textContent = "00:00:00"
+      this.showElapsed(time, true)
+    } else {
+      this.elapsedTarget.textContent = this.formatTime(remaining)
+    }
+  }
+
+  showElapsed(time, past = false) {
+    const now = new Date().getTime()
+    const elapsed = Math.floor((now - time) / 1000)
+
+    if (past) {
+      this.elapsedTarget.textContent = "-" + this.formatTime(elapsed)
+    } else {
       this.elapsedTarget.textContent = this.formatTime(elapsed)
     }
   }

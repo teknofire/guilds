@@ -1,5 +1,5 @@
 = turbo_frame_tag dom_id(timer) do 
-  .card.mb-3{ data: { controller: 'localtime', localtime_time_value: timer.starts_at.iso8601, localtime_duration_value: timer.duration } }
+  .card.h-100.mb-3{ data: { controller: 'localtime', localtime_time_value: timer.starts_at.iso8601, localtime_duration_value: timer.duration } }
     .card-header 
       .row
         .col 
@@ -7,19 +7,19 @@
         .col-4.text-end
           .btn-group
             - unless timer.map_url.blank?
-              = link_to timer.map_url, class: 'btn btn-success btn-sm', target: '_blank' do
+              = link_to timer.map_url, class: 'btn btn-success btn-sm', target: '_blank', title: 'Show map' do
                 %i.bi.bi-globe
 
             - if policy(timer).edit?
-              = link_to reset_timer_path(timer), class: 'btn btn-primary btn-sm', data: { turbo_method: :patch, turbo_confirm: 'Are you sure?', turbo_frame: dom_id(timer) }  do
+              = link_to reset_timer_path(timer), class: 'btn btn-primary btn-sm', data: { turbo_method: :patch, turbo_confirm: 'Are you sure?', turbo_frame: dom_id(timer) }, title: 'Reset timer'  do
                 %i.bi.bi-arrow-clockwise
 
           .btn-group
             - if policy(timer).edit?
-              = link_to edit_timer_path(timer), class: 'btn btn-primary btn-sm', data: { turbo_frame: dom_id(timer) }  do
+              = link_to edit_timer_path(timer), class: 'btn btn-primary btn-sm', data: { turbo_frame: dom_id(timer) }, title: 'Edit timer'  do
                 %i.bi.bi-pencil
             - if policy(timer).destroy?
-              = link_to timer, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?', turbo_frame: '_top' }, class: 'btn btn-danger btn-sm' do
+              = link_to timer, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?', turbo_frame: '_top' }, class: 'btn btn-danger btn-sm', title: 'Delete timer' do
                 %i.bi.bi-trash 
     .card-body
       %h1.text-center.time{ data: { localtime_target: 'elapsed' } }
@@ -32,9 +32,10 @@
         .col-8
           .card-text{ data: { localtime_target: 'output' } }
             = timer.starts_at
-          .card-text
-            %strong Duration:
-            = distance_of_time_in_words(timer.duration)
+          - unless timer.duration.blank?
+            .card-text
+              %strong Duration:
+              = distance_of_time_in_words(timer.duration)
           - unless timer.map_url.blank?
             .card-text
               %strong X:

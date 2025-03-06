@@ -16,10 +16,13 @@
   .row.mb-3
     .col
       = f.label :starts_at, class: 'form-label'
-      = f.datetime_field :starts_at, include_seconds: false, class: 'form-control'
+      .input-group{ data: { controller: 'datepicker' } }
+        = f.datetime_field :starts_at, include_seconds: false, class: 'form-control', data: { datepicker_target: 'input' } 
+        %button.input-group-text.btn.btn-secondary{ type: 'button', data: { action: 'datepicker#click' } }
+          %i.bi.bi-calendar
     .col
       = f.label :duration, class: 'form-label'
-      = f.select :duration, Timer.available_durations, {}, class: 'form-select'
+      = f.select :duration, Timer.available_durations, { include_blank: true }, class: 'form-select'
 
   .row.mb-3 
     .col 

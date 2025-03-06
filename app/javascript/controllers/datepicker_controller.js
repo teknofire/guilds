@@ -7,23 +7,10 @@ export default class extends Controller {
   static targets = ["input"]
   connect() {
     console.log("datepicker connected");
-    // console.log(Datepicker);
   }
 
-  inputTargetConnected(element) {
-    console.log('picker connected');
-    // console.log(Datepicker);
-    this.initializePicker(element);
+  click(event) {
+    console.log("datepicker clicked");
+    this.inputTarget.showPicker()
   }
-
-  initializePicker(element) {
-    new AirDatepicker(element, {
-      timepicker: true,
-      timeFormat: "hh:mm",
-      dateFormat: "yyyy-MM-dd",
-      buttons: ['today'],
-      locale: localeEn
-    });
-  }
-
 }

@@ -1,22 +1,22 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    registrations: 'users/registrations',
-    sessions: 'users/sessions',
-    omniauth_callbacks: 'users/omniauth_callbacks'
+    registrations: "users/registrations",
+    sessions: "users/sessions",
+    omniauth_callbacks: "users/omniauth_callbacks"
   }
-  
-  resources :ledgers do 
-    collection do 
-      get 'deposit'
-      get 'withdraw'
+
+  resources :ledgers do
+    collection do
+      get "deposit"
+      get "withdraw"
     end
   end
 
-  resources :players do 
-    resource :ledgers do 
+  resources :players do
+    resource :ledgers do
       collection do
-        get 'deposit'
-        get 'withdraw'
+        get "deposit"
+        get "withdraw"
       end
     end
   end
@@ -24,11 +24,11 @@ Rails.application.routes.draw do
   resources :guilds
   resources :items
   resources :rarities
-  resources :users, only: [:index, :show, :edit, :update]
-  
-  resources :timers do 
-    member do 
-      patch 'reset'
+  resources :users, only: [ :index, :show, :edit, :update ]
+
+  resources :timers do
+    member do
+      patch "reset"
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

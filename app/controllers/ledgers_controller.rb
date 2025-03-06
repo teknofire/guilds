@@ -22,18 +22,18 @@ class LedgersController < ApplicationController
 
   def deposit
     if @player
-      @ledger = authorize Ledger.new(player: @player, action: 'deposit')
-    else 
-      @ledger = authorize Ledger.new(action: 'deposit')
+      @ledger = authorize Ledger.new(player: @player, action: "deposit")
+    else
+      @ledger = authorize Ledger.new(action: "deposit")
     end
     render :new
   end
 
   def withdraw
     if @player
-      @ledger = authorize Ledger.new(player: @player, action: 'withdraw')
+      @ledger = authorize Ledger.new(player: @player, action: "withdraw")
     else
-      @ledger = authorize Ledger.new(action: 'withdraw')
+      @ledger = authorize Ledger.new(action: "withdraw")
     end
     render :new
   end

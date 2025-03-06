@@ -10,7 +10,7 @@ class Ledger < ApplicationRecord
     self.points = (self.qty * self.modifier).ceil
   end
 
-  def self.action_options 
+  def self.action_options
     %w[deposit withdraw]
   end
 end

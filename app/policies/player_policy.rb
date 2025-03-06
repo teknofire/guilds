@@ -12,7 +12,7 @@ class PlayerPolicy < ApplicationPolicy
   def show?
     user&.admin? || user&.manager?
   end
-  
+
   def create?
     user&.admin?
   end

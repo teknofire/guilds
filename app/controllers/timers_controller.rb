@@ -20,8 +20,8 @@ class TimersController < ApplicationController
   def edit
   end
 
-  def reset 
-    @timer.starts_at = Time.now 
+  def reset
+    @timer.starts_at = Time.now
     @timer.save!
 
     respond_to do |format|

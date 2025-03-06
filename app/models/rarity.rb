@@ -1,5 +1,5 @@
 class Rarity < ApplicationRecord
-    def to_s 
+    def to_s
       name
     end
 end

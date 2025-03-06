@@ -72,7 +72,7 @@ gem "omniauth-rails_csrf_protection", "~> 1.0"
 gem "devise", "~> 4.9"
 gem "pundit", "~> 2.5"
 
-gem "html2haml", "~> 2.3", :group => :dev
+gem "html2haml", "~> 2.3", group: :dev
 
 gem "jsbundling-rails", "~> 1.3"
 

@@ -8,7 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-[ ["Common", 0.5], ["Uncommon", 0.5], ["Rare", 1], ["Heroic", 3], ["Epic", 6], ["Legendary", 12] ].each do |rarity_name, value|
+[ [ "Common", 0.5 ], [ "Uncommon", 0.5 ], [ "Rare", 1 ], [ "Heroic", 3 ], [ "Epic", 6 ], [ "Legendary", 12 ] ].each do |rarity_name, value|
     Rarity.find_or_create_by!(name: rarity_name, modifier: value)
 end
 
@@ -36,7 +36,7 @@ end
     { name: "Animal Corpse", value: 1 },
     { name: "Gremskin", value: 1 },
     { name: 'Willow Caravan Carriage', value: 20 },
-    { name: 'Willow Caravan Chassis', value: 20 },
+    { name: 'Willow Caravan Chassis', value: 20 }
 ].each do |item|
     Item.find_or_create_by!(name: item[:name], modifier: item[:value])
 end

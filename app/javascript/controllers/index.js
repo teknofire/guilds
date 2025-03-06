@@ -9,3 +9,6 @@ application.register("datatables", DatatablesController)
 
 import DatepickerController from "./datepicker_controller"
 application.register("datepicker", DatepickerController)
+
+import LocaltimeController from "./localtime_controller"
+application.register("localtime", LocaltimeController)

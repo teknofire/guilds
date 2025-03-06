@@ -9,6 +9,10 @@
     = f.label :name, class: 'form-label'
     = f.text_field :name, class: 'form-control'
 
+  .form-group.mb-3
+    = f.label :timezone, class: 'form-label'
+    = f.select :timezone, ActiveSupport::TimeZone.all.collect {|tz| ["(GMT#{ActiveSupport::TimeZone.seconds_to_utc_offset(tz.utc_offset)}) #{tz.name}", tz.tzinfo.name]}, { include_blank: true }, class: 'form-select'
+
   - if policy(@user).permission?
     %h4 Permissions
     .form-group 

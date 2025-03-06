@@ -1,5 +1,5 @@
 class TimersController < ApplicationController
-  before_action :set_timer, only: %i[ show edit update destroy ]
+  before_action :set_timer, only: %i[ show edit update destroy reset ]
 
   # GET /timers or /timers.json
   def index
@@ -13,20 +13,36 @@ class TimersController < ApplicationController
   # GET /timers/new
   def new
     @timer = authorize Timer.new
-    @timer.starts_at = Time.now
+    @timer.starts_at = Time.zone.now
   end
 
   # GET /timers/1/edit
   def edit
   end
 
-  # POST /timers or /timers.json
-  def create
-    @timer = authorize Timer.new(timer_params)
+  def reset 
+    @timer.starts_at = Time.now 
+    @timer.save!
 
     respond_to do |format|
       if @timer.save
-        format.html { redirect_to @timer, notice: "Timer was successfully created." }
+        format.html { redirect_to timers_path, notice: "Timer was restarted." }
+        format.json { render :show, status: :created, location: @timer }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @timer.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # POST /timers or /timers.json
+  def create
+    @timer = authorize Timer.new(timer_params)
+    @timer.user = current_user
+
+    respond_to do |format|
+      if @timer.save
+        format.html { redirect_to timers_path, notice: "Timer was successfully created." }
         format.json { render :show, status: :created, location: @timer }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -66,6 +82,6 @@ class TimersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def timer_params
-      params.expect(timer: [ :name, :starts_at, :user_id, :public, :description ])
+      params.expect(timer: [ :name, :starts_at, :public, :description, :duration, :coord_x, :coord_y ])
     end
 end

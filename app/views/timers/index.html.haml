@@ -4,31 +4,7 @@
 %h1 Timers
 
 = turbo_frame_tag 'form'
-
-%div{ data: { controller: 'datatables ', datatables: { order_value: [0, 'asc'] } } }
-  %table.table.table-striped.border{ data: { datatables: { target: 'table' } } }
-    %thead
-      %tr
-        %th Name
-        %th Starts at
-        %th User
-        %th Public
-        %th Description
-        - if policy(:timer).any?
-          %th
-
-    %tbody
-      - @timers.each do |timer|
-        %tr
-          %td= timer.name
-          %td= timer.starts_at
-          %td= timer.user
-          %td= timer.public
-          %td= timer.description
-          %td
-            = link_to 'Show', timer, class: 'btn btn-primary' if policy(timer).show?
-            = link_to 'Edit', edit_timer_path(timer), class: 'btn btn-secondary' if policy(timer).update?
-            = link_to 'Destroy', timer, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger' if policy(timer).destroy?
-            -# = link_to 'Start', start_timer_path(timer), method: :post, data: { confirm: 'Are you sure?' }, class: 'btn btn-success' if policy(timer).start?
-            -# = link_to 'Stop', stop_timer_path(timer), method: :post, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' if policy(timer).stop?
-            -# = link_to 'Reset', reset_timer_path(timer), method: :post, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning' if policy(timer).reset?
+.row.row-cols-2.g-2
+  - @timers.each do |timer|
+    .col
+      = render timer

@@ -31,9 +31,9 @@ class UsersController < ApplicationController
 
   def user_params
     if policy(@user).permission?
-        params.require(:user).permit(:name, :admin, :manager)
+        params.require(:user).permit(:name, :admin, :manager, :timezone)
     else
-        params.require(:user).permit(:name)
+        params.require(:user).permit(:name, :timezone)
     end
   end
 end

@@ -14,7 +14,11 @@ class TimerPolicy < ApplicationPolicy
   end
 
   def update?
-    user&.admin?
+    user&.admin? || user == record.user
+  end
+
+  def reset?
+    update?
   end
 
   def create?
@@ -22,7 +26,7 @@ class TimerPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user&.admin?
+    user&.admin? || user == record.user
   end
 
   class Scope < ApplicationPolicy::Scope

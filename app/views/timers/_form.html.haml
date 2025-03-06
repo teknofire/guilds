@@ -1,25 +1,40 @@
-= form_for @timer, data: { controller: 'datepicker' } do |f|
+= form_for @timer, data: { turbo_frame: @timer.persisted? ? nil : '_top' } do |f|
   - if @timer.errors.any?
     #error_explanation
       %h2= "#{pluralize(@timer.errors.count, "error")} prohibited this timer from being saved:"
       %ul
         - @timer.errors.full_messages.each do |message|
           %li= message
-  = f.hidden_field :user_id, value: current_user.id
-  .row.mb-3
-    .col
-      = f.label :name, class: 'form-label'
-      = f.text_field :name, class: 'form-control'
-    .col
-      = f.label :starts_at, class: 'form-label'
-      = f.text_field :starts_at, class: 'form-control width-auto', data: { datepicker_target: 'input' }
+
+  .mb-3 
+    = f.label :name, class: 'form-label'
+    = f.text_field :name, class: 'form-control'
   .mb-3
     = f.label :description, class: 'form-label'
     = f.textarea :description, class: 'form-control'
+
+  .row.mb-3
+    .col
+      = f.label :starts_at, class: 'form-label'
+      = f.datetime_field :starts_at, include_seconds: false, class: 'form-control'
+    .col
+      = f.label :duration, class: 'form-label'
+      = f.select :duration, Timer.available_durations, {}, class: 'form-select'
+
+  .row.mb-3 
+    .col 
+      = f.label :coord_x, class: 'form-label'
+      = f.number_field :coord_x, step: :any, class: 'form-control'
+    .col
+      = f.label :coord_y, class: 'form-label'
+      = f.number_field :coord_y, step: :any, class: 'form-control'
   .mb-3
     = f.label :public, class: 'form-label'
     = f.checkbox :public, class: 'form-check-input'
   .d-grid.mb-3
     .btn-group
-      = link_to 'Cancel', :back, class: 'btn btn-secondary'
+      - if @timer.errors.any?
+        = link_to 'Cancel', timers_path, class: 'btn btn-secondary', data: { turbo_frame: '_top' }
+      - else 
+        = link_to 'Cancel', :back, class: 'btn btn-secondary'
       = f.submit 'Save', class: 'btn btn-primary'

@@ -10,4 +10,5 @@ pin "@popperjs/core", to: "@popperjs--core.js" # @2.11.8
 pin "datatables.net" # @2.2.2
 pin "jquery" # @3.7.1
 pin "datatables.net-bs5" # @2.2.2
-pin "flatpickr" # @4.6.13
+pin "air-datepicker" # @3.5.3
+pin "air-datepicker/locale/en", to: "air-datepicker--locale--en.js" # @3.5.3

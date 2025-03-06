@@ -1,4 +1,7 @@
 %h1= @user.name
+%p 
+    %b Timezone: 
+    = @user.timezone
 %p
     %b Admin?:
     = @user.admin? ? 'Yes' : 'No'

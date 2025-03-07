@@ -1,11 +1,22 @@
-%h1= @user.name
-%p 
-    %b Timezone: 
-    = @user.timezone
-%p
-    %b Admin?:
-    = @user.admin? ? 'Yes' : 'No'
-%p
-    %b Ledger Manager?:
-    = @user.manager? ? 'Yes' : 'No'
+.card 
+    %h4.card-header= @user.name
+    .card-body
+        %p 
+            %b Timezone: 
+            = @user.timezone
+        - if policy(@user).permission?
+            .mb-3
+                %h4 Permissions
+                .ms-4
+                    %div
+                        %b Admin?:
+                        = @user.admin? ? 'Yes' : 'No'
+                    %div
+                        %b Ledger Manager?:
+                        = @user.manager? ? 'Yes' : 'No'
 
+            .mb-3
+                %h4 Feature Flags
+                %ul
+                    - @user.features.each do |feature|
+                        %li= feature.name.titleize

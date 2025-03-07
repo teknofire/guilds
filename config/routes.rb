@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :ashes_mobs, path: '/ashes/mobs'
   resources :ashes_items, path: '/ashes/items'
 
   devise_for :users, controllers: {

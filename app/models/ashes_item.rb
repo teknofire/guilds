@@ -3,4 +3,11 @@ class AshesItem < ApplicationRecord
 
     extend FriendlyId
     friendly_id :guid, use: :slugged
+
+    def self.import(data)
+        find_or_create_by(guid: data["guid"]) do |i|
+            i.data = data
+            i.save!
+        end
+    end
 end

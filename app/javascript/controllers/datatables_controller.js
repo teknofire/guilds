@@ -25,6 +25,7 @@ export default class extends Controller {
   initializeDatatable(element) {
     new DataTable(element, {
       retrieve: true,
+      pageLength: 25,
       order: [this.orderValue]
     });
   }

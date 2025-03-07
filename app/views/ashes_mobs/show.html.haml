@@ -1,0 +1,22 @@
+%p#notice= notice
+
+.row 
+  .col-md-4
+    .card.mb-3
+      %h4.card-header= @ashes_mob.name
+      .card-body 
+        %p 
+          %strong Level Range:
+          = @ashes_mob.level_range
+    .d-grid
+      = link_to 'Back', ashes_mobs_path, class: 'btn btn-primary'
+  .col-md-8
+    .card 
+      .card-body
+        - @ashes_mob.data.each do |key, value|
+          .row
+            .col-md-3.text-end
+              %strong= key
+            .col-md-9
+              != ap value, plain: true
+

@@ -1,0 +1,16 @@
+= form_for @ashes_mob do |f|
+  - if @ashes_mob.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@ashes_mob.errors.count, "error")} prohibited this ashes_mob from being saved:"
+      %ul
+        - @ashes_mob.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :guid
+    = f.text_field :guid
+  .field
+    = f.label :data
+    = f.text_field :data
+  .actions
+    = f.submit 'Save'

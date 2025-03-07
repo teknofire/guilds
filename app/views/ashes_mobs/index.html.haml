@@ -1,0 +1,12 @@
+%h1 Listing AOC Mobs
+
+%div{ data: { controller: "datatables" } }
+  %table.table.table-stripped.border{ data: { datatables_target: "table" } }
+    %thead
+      %tr
+        %th Name
+        %th Level Range
+        %th
+
+    %tbody
+      = render partial: 'ashes_mob_row', collection: @ashes_mobs, cached: true, as: :ashes_mob

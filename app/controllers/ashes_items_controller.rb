@@ -1,9 +1,22 @@
 class AshesItemsController < ApplicationController
+  include Pagy::Backend
+
   before_action :set_ashes_item, only: %i[ show edit update destroy ]
 
   # GET /ashes_items or /ashes_items.json
   def index
-    @ashes_items = authorize AshesItem.all
+    @search = authorize AshesItem.order(Arel.sql("data->>'itemName'"))
+    if params[:type] && AshesItem.inventoryFilterTypes.include?(params[:type])
+      @search = @search.where("data->>'inventoryFilterType' = ?", params[:type])
+    end
+    if !params[:search]&.empty?
+      @search = @search.where("data->>'itemName' ILIKE ?", "%#{params[:search]}%").or(
+        @search.where("data->>'description' ILIKE ?", "%#{params[:search]}%")
+      ).or(
+        @search.where("data->>'professionTag' ILIKE ?", "%#{params[:search]}%")
+      )
+    end
+    @pagy, @ashes_items = pagy_arel(@search)
   end
 
   # GET /ashes_items/1 or /ashes_items/1.json

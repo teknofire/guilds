@@ -1,7 +1,17 @@
 %h1 Listing AOC Items
 
-%div{ data: { controller: "datatables" }}
-  %table.table.table-stripped.border{ data: { datatables_target: 'table' }}
+= form_tag ashes_items_path, method: :get do
+  .row
+    .col-6
+      .input-group.mb-3
+        = text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search...'
+    .col-5
+      .input-group.mb-3
+        = select_tag :type, options_for_select(AshesItem.inventoryFilterTypes, params[:inventoryFilterType]), include_blank: true, class: 'form-select'
+    .col-1.text-end
+      = button_tag 'Search', class: 'btn btn-primary', type: 'submit'
+%div
+  %table.table.table-stripped.table-hover.border
     %thead
       %tr
         %th GUID
@@ -20,3 +30,7 @@
               %td= ashes_item.inventoryFilterType
               %td= ashes_item.subType
               %td= link_to 'Show', ashes_item
+.row 
+  .col
+    .float-end 
+      != pagy_bootstrap_nav @pagy

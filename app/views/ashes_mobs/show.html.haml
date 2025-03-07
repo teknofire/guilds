@@ -1,22 +1,28 @@
 %p#notice= notice
 
 .row 
-  .col-md-4
+  .col
     .card.mb-3
       %h4.card-header= @ashes_mob.name
       .card-body 
         %p 
           %strong Level Range:
           = @ashes_mob.level_range
+
+        %p
+          %strong Codex Entry:
+          = link_to @ashes_mob.name, "https://ashescodex.com/db/mob/#{@ashes_mob.slug}", target: '_blank'
     .d-grid
       = link_to 'Back', ashes_mobs_path, class: 'btn btn-primary'
-  .col-md-8
-    .card 
-      .card-body
-        - @ashes_mob.data.each do |key, value|
-          .row
-            .col-md-3.text-end
-              %strong= key
-            .col-md-9
-              != ap value, plain: true
+  - if current_user.admin?
+    .col-md-8
+      .card 
+        %h4.card-header Raw Data:
+        .card-body
+          - @ashes_mob.data.each do |key, value|
+            .row
+              .col-md-3.text-end
+                %strong= key
+              .col-md-9
+                != ap value, plain: true, index: false
 

@@ -5,7 +5,12 @@ class AshesMobsController < ApplicationController
 
   # GET /ashes_mobs or /ashes_mobs.json
   def index
-    @pagy, @ashes_mobs = pagy(authorize AshesMob.order(Arel.sql("data->>'_displayName'")))
+    @search = authorize AshesMob.order(Arel.sql("data->>'_displayName'"))
+    if !params[:search]&.empty?
+      @search = @search.where("data->>'_displayName' ILIKE ?", "%#{params[:search]}%")
+    end
+
+    @pagy, @ashes_mobs = pagy_arel(@search)
   end
 
   # GET /ashes_mobs/1 or /ashes_mobs/1.json

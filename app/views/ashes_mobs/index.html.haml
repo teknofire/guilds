@@ -1,5 +1,13 @@
 %h1 Listing AOC Mobs
 
+= form_tag ashes_mobs_path, method: :get do
+  .row
+    .col-11
+      .input-group.mb-3
+        = text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search...'
+    .col-1.text-end
+      = button_tag 'Search', class: 'btn btn-primary', type: 'submit'
+
 %div
   %table.table.table-stripped.border
     %thead

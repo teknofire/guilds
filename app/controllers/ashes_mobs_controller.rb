@@ -1,9 +1,11 @@
 class AshesMobsController < ApplicationController
+  include Pagy::Backend
+
   before_action :set_ashes_mob, only: %i[ show edit update destroy ]
 
   # GET /ashes_mobs or /ashes_mobs.json
   def index
-    @ashes_mobs = authorize AshesMob.all
+    @pagy, @ashes_mobs = pagy(authorize AshesMob.order(Arel.sql("data->>'_displayName'")))
   end
 
   # GET /ashes_mobs/1 or /ashes_mobs/1.json

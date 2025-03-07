@@ -79,3 +79,5 @@ gem "jsbundling-rails", "~> 1.3"
 gem "cssbundling-rails", "~> 1.4"
 
 gem "awesome_print", "~> 1.9"
+
+gem "pagy", "~> 9.3"

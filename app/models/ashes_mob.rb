@@ -2,6 +2,7 @@ class AshesMob < ApplicationRecord
     extend FriendlyId
     friendly_id :slug, use: :slugged
 
+
     validates :slug, presence: true, uniqueness: true
 
     store_accessor :data, :_displayName

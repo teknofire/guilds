@@ -1,7 +1,7 @@
 %h1 Listing AOC Mobs
 
-%div{ data: { controller: "datatables" } }
-  %table.table.table-stripped.border{ data: { datatables_target: "table" } }
+%div
+  %table.table.table-stripped.border
     %thead
       %tr
         %th Name
@@ -10,3 +10,5 @@
 
     %tbody
       = render partial: 'ashes_mob_row', collection: @ashes_mobs, cached: true, as: :ashes_mob
+  .float-end
+    != pagy_bootstrap_nav @pagy

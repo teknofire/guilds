@@ -1,10 +1,11 @@
 .row.align-items-center.p-5.bg-dark-subtle.rounded-5.mt-5
-    .col-lg-7.text-center.text-lg-start 
+    .col.text-center.text-lg-start 
         %h1.display-2.text-primary.mb-3 
             Welcome to 
             %br 
             Guild Manager Experiment
         %p.lead.mb-4 
             This is an experiment for helping to manage guilds for communities
-    .col-lg-5
-        = render 'devise/shared/links'
+    - unless user_signed_in?
+        .col-lg-5
+            = render 'devise/shared/links'

@@ -6,7 +6,7 @@ class AshesMobPolicy < ApplicationPolicy
   # https://gist.github.com/Burgestrand/4b4bc22f31c8a95c425fc0e30d7ef1f5
 
   def feature_access?
-    user.feature?("ashes")
+    user&.feature?("ashes")
   end
 
   def index?
@@ -14,7 +14,7 @@ class AshesMobPolicy < ApplicationPolicy
   end
 
   def show?
-    user.admin? || feature_access? 
+    user&.admin? || feature_access? 
   end
 
   def create?

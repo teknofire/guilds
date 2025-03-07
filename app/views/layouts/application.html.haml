@@ -45,6 +45,12 @@
             - if policy(User).index?
               %li.nav-item
                 = link_to 'Users', users_path, class: "nav-link"
+            - if policy(AshesItem).index?
+              %li.nav-item.dropdown
+                = link_to 'Ashes', '#', class: "nav-link dropdown-toggle", data: { bs_toggle: "dropdown" }, role: "button"
+                %ul.dropdown-menu
+                  %li
+                    = link_to 'Items', ashes_items_path, class: "dropdown-item"
           %ul.navbar-nav.d-flex
             - if user_signed_in?
               %li.nav-item.me-2

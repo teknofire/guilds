@@ -60,7 +60,7 @@ class AshesItemsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ashes_item
-      @ashes_item = authorize AshesItem.find(params.expect(:id))
+      @ashes_item = authorize AshesItem.friendly.find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.

@@ -40,3 +40,7 @@ end
 ].each do |item|
     Item.find_or_create_by!(name: item[:name], modifier: item[:value])
 end
+
+%w{ ashes }.each do |feature|
+    Feature.find_or_create_by!(name: feature)
+end

@@ -9,6 +9,9 @@ class User < ApplicationRecord
   validates :timezone, presence: true
   validates :name, presence: true
 
+  has_many :user_features
+  has_many :features, through: :user_features
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
@@ -16,6 +19,10 @@ class User < ApplicationRecord
       user.name = auth.info.name   # assuming the user model has a name
       # user.image = auth.info.image # assuming the user model has an image
     end
+  end
+
+  def feature?(name)
+    admin? || features.where(name: name).any?
   end
 
   def to_s

@@ -14,15 +14,15 @@ class PlayerPolicy < ApplicationPolicy
   end
 
   def create?
-    user&.admin?
+    user&.admin? || user&.manager?
   end
 
   def update?
-    user&.admin?
+    user&.admin? || user&.manager?
   end
 
   def destroy?
-    user&.admin?
+    user&.admin? || user&.manager?
   end
 
   class Scope < ApplicationPolicy::Scope

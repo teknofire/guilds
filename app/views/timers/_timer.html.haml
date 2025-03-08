@@ -1,5 +1,5 @@
 = turbo_frame_tag dom_id(timer) do 
-  .card.h-100.mb-3{ data: { controller: 'localtime', localtime_time_value: timer.starts_at.iso8601, localtime_duration_value: timer.duration } }
+  .card.h-100.mb-3{ data: { controller: 'timer', timer_time_value: timer.starts_at.iso8601, timer_duration_value: timer.duration } }
     .card-header 
       .row
         .col 
@@ -25,7 +25,7 @@
               = link_to timer, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?', turbo_frame: '_top' }, class: 'btn btn-danger btn-sm', title: 'Delete timer' do
                 %i.bi.bi-trash 
     .card-body
-      %h1.text-center.time{ data: { localtime_target: 'elapsed' } }
+      %h1.text-center.time{ data: { timer_target: 'elapsed' } }
         = distance_of_time_in_words timer.elapsed
       
       %p.card-text
@@ -33,7 +33,7 @@
     .card-footer
       .row
         .col-8
-          .card-text{ data: { localtime_target: 'output' } }
+          .card-text{ data: { timer_target: 'output' } }
             = timer.starts_at
           - unless timer.duration.blank?
             .card-text

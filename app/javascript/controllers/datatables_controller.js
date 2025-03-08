@@ -9,7 +9,6 @@ export default class extends Controller {
   }
 
   connect() {
-    console.log("datatables connected");
   }
 
   tableTargetConnected(element) {

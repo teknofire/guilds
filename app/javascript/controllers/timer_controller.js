@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="localtime"
+// Connects to data-controller="timer"
 export default class extends Controller {
   static targets = ["elapsed", "output"]
   static values = { time: String, duration: Number }

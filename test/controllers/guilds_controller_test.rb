@@ -2,8 +2,8 @@ require "test_helper"
 
 class GuildsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    sign_in_admin
     @guild = guilds(:one)
+    sign_in_admin
   end
 
   test "should get index" do
@@ -18,7 +18,7 @@ class GuildsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create guild" do
     assert_difference("Guild.count") do
-      post guilds_url, params: { guild: { guild_id: @guild.guild_id, name: @guild.name } }
+      post guilds_url, params: { guild: { name: @guild.name, parent_guild_id: guilds(:two) } }
     end
 
     assert_redirected_to guild_url(Guild.last)
@@ -35,7 +35,7 @@ class GuildsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update guild" do
-    patch guild_url(@guild), params: { guild: { guild_id: @guild.guild_id, name: @guild.name } }
+    patch guild_url(@guild), params: { guild: { name: @guild.name } }
     assert_redirected_to guild_url(@guild)
   end
 

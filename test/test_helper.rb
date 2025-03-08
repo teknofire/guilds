@@ -11,15 +11,20 @@ module ActiveSupport
     fixtures :all
 
     OmniAuth.config.test_mode = true
-    OmniAuth.config.mock_auth[:discord] = OmniAuth::AuthHash.new({ 
-          uid: '123456', info: { email: 'admin@test.com', name: 'Admin' } 
+    OmniAuth.config.mock_auth[:discord] = OmniAuth::AuthHash.new({
+      provider: "discord",
+      uid: "123456",
+      info: {
+        email: "admin@test.com",
+        name: "Admin User"
+      }
     })
-
     # Add more helper methods to be used by all tests here...
     def sign_in_admin
       Rails.application.env_config["devise.mapping"] = Devise.mappings[:user]
       Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:discord]
-      get user_discord_omniauth_callback_path
+      post user_discord_omniauth_authorize_path
+      follow_redirect!
     end
   end
 end

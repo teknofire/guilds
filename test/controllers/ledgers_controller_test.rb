@@ -3,6 +3,7 @@ require "test_helper"
 class LedgersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @ledger = ledgers(:one)
+    sign_in_admin
   end
 
   test "should get index" do

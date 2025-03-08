@@ -3,6 +3,7 @@ require "test_helper"
 class TimersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @timer = timers(:one)
+    sign_in_admin
   end
 
   test "should get index" do
@@ -20,7 +21,7 @@ class TimersControllerTest < ActionDispatch::IntegrationTest
       post timers_url, params: { timer: { description: @timer.description, name: @timer.name, public: @timer.public, starts_at: @timer.starts_at, user_id: @timer.user_id } }
     end
 
-    assert_redirected_to timer_url(Timer.last)
+    assert_redirected_to timers_url
   end
 
   test "should show timer" do

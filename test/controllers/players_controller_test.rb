@@ -3,6 +3,7 @@ require "test_helper"
 class PlayersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @player = players(:one)
+    sign_in_admin
   end
 
   test "should get index" do
@@ -38,11 +39,10 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to player_url(@player)
   end
 
-  test "should destroy player" do
-    assert_difference("Player.count", -1) do
+  test "should not destroy player with ledgers" do
+    assert_difference("Player.count", 0) do
       delete player_url(@player)
     end
-
     assert_redirected_to players_url
   end
 end

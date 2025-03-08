@@ -3,6 +3,7 @@ require "test_helper"
 class RaritiesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @rarity = rarities(:one)
+    sign_in_admin
   end
 
   test "should get index" do
@@ -39,6 +40,7 @@ class RaritiesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy rarity" do
+    @rarity = rarities(:deletable)
     assert_difference("Rarity.count", -1) do
       delete rarity_url(@rarity)
     end

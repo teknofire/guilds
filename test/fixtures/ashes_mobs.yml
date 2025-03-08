@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  guid: MyString
-  data: 
+  slug: MyString
+  data:
 
 two:
-  guid: MyString
-  data: 
+  slug: MyString2
+  data:

@@ -10,6 +10,6 @@ one:
 two:
   name: MyString
   starts_at: 2025-02-27 17:03:00
-  user: two
+  user: ledgermanager
   public: false
   description: MyText

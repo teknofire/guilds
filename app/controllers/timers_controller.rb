@@ -7,6 +7,9 @@ class TimersController < ApplicationController
     unless params[:age].blank?
       @timers = @timers.where('starts_at > ?', Time.now - params[:age].to_i.seconds)
     end
+    unless params[:tag].blank?
+      @timers = @timers.tagged_with(params[:tag])
+    end
   end
 
   # GET /timers/1 or /timers/1.json

@@ -1,4 +1,7 @@
 = form_with url: timers_path, method: :get, class: 'row row-cols-lg-auto g-3 align-items-center float-end' do |f|
+  - if params[:tag].present? || params[:age].present?
+    .col-12
+      = link_to 'Clear filters', timers_path, class: 'btn btn-secondary', data: { turbo_frame: '_top' }
   .col-12
     .input-group
       = f.label :age, class: 'input-group-text'

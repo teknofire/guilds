@@ -49,7 +49,7 @@
 
           .tags 
             - timer.tag_list.each do |tag|
-              = link_to tag, timers_path(tag: tag), class: 'badge text-bg-primary me-1 fs-6'
+              = link_to tag, timers_path(tag: tag), class: 'badge text-bg-primary me-1 fs-6', data: { turbo_frame: '_top' }
 
 
         .col-4.text-end

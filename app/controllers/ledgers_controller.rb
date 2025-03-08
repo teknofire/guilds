@@ -21,26 +21,23 @@ class LedgersController < ApplicationController
   end
 
   def deposit
-    if @player
-      @ledger = authorize Ledger.new(player: @player, action: "deposit")
-    else
-      @ledger = authorize Ledger.new(action: "deposit")
-    end
+    @ledger = authorize Ledger.new(action: "deposit")
+    @ledger.player = @player if @player
+   
     render :new
   end
 
   def withdraw
-    if @player
-      @ledger = authorize Ledger.new(player: @player, action: "withdraw")
-    else
-      @ledger = authorize Ledger.new(action: "withdraw")
-    end
+    @ledger = authorize Ledger.new(action: "withdraw")
+    @ledger.player = @player if @player
+
     render :new
   end
 
   # POST /ledgers or /ledgers.json
   def create
     @ledger = authorize Ledger.new(ledger_params)
+    @ledger.created_by = current_user
 
     respond_to do |format|
       if @ledger.save

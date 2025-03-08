@@ -10,7 +10,7 @@ class TimerPolicy < ApplicationPolicy
   end
 
   def show?
-    user&.admin?
+    user.admin? || record.public? || user == record.user
   end
 
   def update?
@@ -22,7 +22,7 @@ class TimerPolicy < ApplicationPolicy
   end
 
   def create?
-    user&.admin?
+    user
   end
 
   def destroy?

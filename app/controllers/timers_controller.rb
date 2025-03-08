@@ -4,6 +4,9 @@ class TimersController < ApplicationController
   # GET /timers or /timers.json
   def index
     @timers = authorize policy_scope(Timer)
+    unless params[:age].blank?
+      @timers = @timers.where('starts_at > ?', Time.now - params[:age].to_i.seconds)
+    end
   end
 
   # GET /timers/1 or /timers/1.json

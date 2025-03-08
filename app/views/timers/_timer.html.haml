@@ -3,7 +3,10 @@
     .card-header 
       .row
         .col 
-          %h5.card-title= timer.name
+          %h5.card-title.position-relative
+            = timer.name
+            - if timer.public?
+              %span.badge.bg-success.text-dark.ms-2.rounded-pill Public
         .col-4.text-end
           .btn-group
             - unless timer.map_url.blank?

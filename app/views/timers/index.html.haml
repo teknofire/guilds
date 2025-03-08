@@ -1,9 +1,18 @@
-.float-end.mb-3
-  = link_to 'New Timer', new_timer_path, class: 'btn btn-success', data: { turbo_frame: 'form' }
+= form_with url: timers_path, method: :get, class: 'row row-cols-lg-auto g-3 align-items-center float-end' do |f|
+  .col-12
+    .input-group
+      = f.label :age, class: 'input-group-text'
+      = f.select :age, options_for_select(Timer.filter_durations, params[:age]), { include_blank: false }, class: 'form-select'
+      = button_tag 'Filter', class: 'btn btn-primary', type: 'submit'
+  - if policy(Timer).create?
+    .col-12.text-end
+      = link_to 'New Timer', new_timer_path, class: 'btn btn-success', data: { turbo_frame: 'form' }
+
 
 %h1 Timers
 
 = turbo_frame_tag 'form'
+
 .row.row-cols-2.g-2
   - @timers.each do |timer|
     .col

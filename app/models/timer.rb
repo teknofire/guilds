@@ -21,6 +21,21 @@ class Timer < ApplicationRecord
     ]
   end
 
+  def self.filter_durations
+    [
+      [ "All", nil ],
+      [ "< 24 hours", 24.hours ],
+      [ "< 4 hours", 4.hours ],
+      [ "< 2 hours", 2.hours ],
+      [ "< 1.5 hours", (1.5).hours ],
+      [ "< 1 hour", 1.hour ],
+      [ "< 45 minutes", 45.minutes ],
+      [ "< 30 minutes", 30.minutes ],
+      [ "< 20 minutes", 20.minutes ],
+      [ "< 15 minutes", 15.minutes ],
+    ]
+  end
+
   def map_url
     return "" if self.coord_x.blank? || self.coord_y.blank?
     "https://ashescodex.com/map?x=#{self.coord_x}&y=#{self.coord_y}"

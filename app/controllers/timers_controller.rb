@@ -3,7 +3,7 @@ class TimersController < ApplicationController
 
   # GET /timers or /timers.json
   def index
-    @timers = authorize policy_scope(Timer)
+    @timers = authorize policy_scope(Timer).order(starts_at: :asc)
     unless params[:age].blank?
       @timers = @timers.where('starts_at > ?', Time.now - params[:age].to_i.seconds)
     end
@@ -85,6 +85,6 @@ class TimersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def timer_params
-      params.expect(timer: [ :name, :starts_at, :public, :description, :duration, :coord_x, :coord_y ])
+      params.expect(timer: [ :name, :starts_at, :public, :description, :duration, :coord_x, :coord_y, :tag_list ])
     end
 end

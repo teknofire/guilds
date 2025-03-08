@@ -6,7 +6,7 @@
           %h5.card-title.position-relative
             = timer.name
             - if timer.public?
-              %span.badge.bg-success.text-dark.ms-2.rounded-pill Public
+              %span.badge.bg-success.text-dark.ms-2e.rounded-pill Public
         .col-4.text-end
           .btn-group
             - unless timer.map_url.blank?
@@ -46,6 +46,10 @@
               &nbsp;
               %strong Y:
               = timer.coord_y
+
+          .tags 
+            - timer.tag_list.each do |tag|
+              = link_to tag, timers_path(tag: tag), class: 'badge text-bg-primary me-1 fs-6'
 
 
         .col-4.text-end

@@ -4,6 +4,8 @@ class Timer < ApplicationRecord
   validates :name, presence: true
   validates :starts_at, presence: true
 
+  acts_as_taggable_on :tags
+
   def elapsed
     (Time.now - self.starts_at).seconds
   end
@@ -34,6 +36,10 @@ class Timer < ApplicationRecord
       [ "< 20 minutes", 20.minutes ],
       [ "< 15 minutes", 15.minutes ],
     ]
+  end
+
+  def tag_list_json
+    tag_list.map { |tag| { value: tag } }.to_json
   end
 
   def map_url

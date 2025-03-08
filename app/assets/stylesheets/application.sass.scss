@@ -2,3 +2,9 @@
 @import './application.bootstrap';
 @import 'datatables.net-bs5/css/dataTables.bootstrap5';
 @import 'air-datepicker/air-datepicker';
+@import '@yaireo/tagify/dist/tagify';
+
+.tagify__input {
+    padding: 0px;
+    margin: 0px 0px 0px 5px;
+}

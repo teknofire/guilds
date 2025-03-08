@@ -12,3 +12,6 @@ application.register("datepicker", DatepickerController)
 
 import LocaltimeController from "./localtime_controller"
 application.register("localtime", LocaltimeController)
+
+import TagController from "./tag_controller"
+application.register("tag", TagController)

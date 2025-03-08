@@ -13,6 +13,10 @@
     = f.label :description, class: 'form-label'
     = f.textarea :description, class: 'form-control'
 
+  .mb-3{ data: { controller: 'tag' } }
+    = f.label :tags, class: 'form-label'
+    = f.text_field :tag_list, value: @timer.tag_list.join(','), class: 'form-control', data: { tag_target: 'input' }
+
   .row.mb-3
     .col
       = f.label :starts_at, class: 'form-label'

@@ -12,3 +12,4 @@ pin "jquery" # @3.7.1
 pin "datatables.net-bs5" # @2.2.2
 pin "air-datepicker" # @3.5.3
 pin "air-datepicker/locale/en", to: "air-datepicker--locale--en.js" # @3.5.3
+pin "@yaireo/tagify", to: "@yaireo--tagify.js" # @4.33.1

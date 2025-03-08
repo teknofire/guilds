@@ -10,6 +10,9 @@ class TimersController < ApplicationController
     unless params[:tag].blank?
       @timers = @timers.tagged_with(params[:tag])
     end
+    unless params[:user].blank?
+      @timers = @timers.where(user: User.friendly.find(params[:user]))
+    end
   end
 
   # GET /timers/1 or /timers/1.json

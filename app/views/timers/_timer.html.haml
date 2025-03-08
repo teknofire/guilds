@@ -53,5 +53,5 @@
 
 
         .col-4.text-end
-          %p.card-text= timer.user
+          %p.card-text= link_to timer.user, timers_path(user: timer.user), data: { turbo_frame: '_top' }
 

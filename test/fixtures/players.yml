@@ -9,3 +9,8 @@ two:
   name: MyString
   guild: two
   slug: mystring
+
+deleteable:
+  name: "Deletable player"
+  guild: one
+  slug: deletable-player

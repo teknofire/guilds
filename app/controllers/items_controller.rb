@@ -55,6 +55,10 @@ class ItemsController < ApplicationController
       format.html { redirect_to items_path, status: :see_other, notice: "Item was successfully destroyed." }
       format.json { head :no_content }
     end
+  rescue ActiveRecord::InvalidForeignKey
+    respond_to do |format|
+      format.html { redirect_to items_path, status: :see_other, alert: "Item is referenced by something else." }
+    end
   end
 
   private

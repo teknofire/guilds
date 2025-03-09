@@ -3,6 +3,7 @@ require "test_helper"
 class ItemsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @item = items(:one)
+    @deleteable_item = items(:deleteable)
     sign_in_admin
   end
 
@@ -39,9 +40,15 @@ class ItemsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to item_url(@item)
   end
 
+  test "should not destroy item" do
+    assert_no_difference("Item.count") do
+      delete item_url(@item)
+    end
+  end
+
   test "should destroy item" do
     assert_difference("Item.count", -1) do
-      delete item_url(@item)
+      delete item_url(@deleteable_item)
     end
 
     assert_redirected_to items_url

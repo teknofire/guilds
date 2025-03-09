@@ -33,7 +33,7 @@
 
 # Arel extra: For better performance utilizing grouped ActiveRecord collections:
 # See: https://ddnexus.github.io/pagy/docs/extras/arel
-require 'pagy/extras/arel'
+require "pagy/extras/arel"
 
 # Array extra: Paginate arrays efficiently, avoiding expensive array-wrapping and without overriding
 # See https://ddnexus.github.io/pagy/docs/extras/array
@@ -116,7 +116,7 @@ require 'pagy/extras/arel'
 
 # Bootstrap extra: Add nav, nav_js and combo_nav_js helpers and templates for Bootstrap pagination
 # See https://ddnexus.github.io/pagy/docs/extras/bootstrap
-require 'pagy/extras/bootstrap'
+require "pagy/extras/bootstrap"
 
 # Bulma extra: Add nav, nav_js and combo_nav_js helpers and templates for Bulma pagination
 # See https://ddnexus.github.io/pagy/docs/extras/bulma

@@ -2,7 +2,7 @@ class Ledger < ApplicationRecord
   belongs_to :player
   belongs_to :item
   belongs_to :rarity
-  belongs_to :created_by, class_name: 'User'
+  belongs_to :created_by, class_name: "User"
 
   before_save :update_modifer_and_points
 

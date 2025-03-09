@@ -34,7 +34,7 @@ class Timer < ApplicationRecord
       [ "< 45 minutes", 45.minutes ],
       [ "< 30 minutes", 30.minutes ],
       [ "< 20 minutes", 20.minutes ],
-      [ "< 15 minutes", 15.minutes ],
+      [ "< 15 minutes", 15.minutes ]
     ]
   end
 

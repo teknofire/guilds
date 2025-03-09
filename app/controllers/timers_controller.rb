@@ -5,7 +5,7 @@ class TimersController < ApplicationController
   def index
     @timers = authorize policy_scope(Timer).order(starts_at: :asc)
     unless params[:age].blank?
-      @timers = @timers.where('starts_at > ?', Time.now - params[:age].to_i.seconds)
+      @timers = @timers.where("starts_at > ?", Time.now - params[:age].to_i.seconds)
     end
     unless params[:tag].blank?
       @timers = @timers.tagged_with(params[:tag])

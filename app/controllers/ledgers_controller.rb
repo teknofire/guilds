@@ -23,7 +23,7 @@ class LedgersController < ApplicationController
   def deposit
     @ledger = authorize Ledger.new(action: "deposit")
     @ledger.player = @player if @player
-   
+
     render :new
   end
 

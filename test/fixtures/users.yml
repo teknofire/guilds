@@ -9,11 +9,18 @@ one:
   email: testuser@test.com
   timezone: "UTC"
   provider: "discord"
+  uid: "423456"
+
+two:
+  name: Testuser2
+  email: testuser2@test.com
+  timezone: "UTC"
+  provider: "discord"
   uid: "323456"
 
 ledgermanager:
-  name: Testuser2
-  email: testuser2@test.com
+  name: Testuser3
+  email: testuser3@test.com
   manager: true
   timezone: "UTC"
   provider: "discord"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_08_220325) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_09_063333) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -269,6 +269,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_08_220325) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
+  create_table "timer_logs", force: :cascade do |t|
+    t.bigint "timer_id", null: false
+    t.bigint "updated_by_id", null: false
+    t.datetime "previous_starts_at"
+    t.string "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["timer_id"], name: "index_timer_logs_on_timer_id"
+    t.index ["updated_by_id"], name: "index_timer_logs_on_updated_by_id"
+  end
+
   create_table "timers", force: :cascade do |t|
     t.string "name"
     t.datetime "starts_at"
@@ -324,6 +335,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_08_220325) do
   add_foreign_key "solid_queue_recurring_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "taggings", "tags"
+  add_foreign_key "timer_logs", "timers"
+  add_foreign_key "timer_logs", "users", column: "updated_by_id"
   add_foreign_key "timers", "users"
   add_foreign_key "user_features", "features"
   add_foreign_key "user_features", "users"

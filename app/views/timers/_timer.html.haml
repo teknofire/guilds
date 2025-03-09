@@ -1,57 +1,71 @@
 = turbo_frame_tag dom_id(timer) do 
-  .card.h-100.mb-3{ data: { controller: 'timer', timer_time_value: timer.starts_at.iso8601, timer_duration_value: timer.duration } }
-    .card-header 
-      .row
-        .col 
-          %h5.card-title.position-relative
-            = timer.name
-            - if timer.public?
-              %span.badge.bg-success.text-dark.ms-2e.rounded-pill Public
-        .col-4.text-end
-          .btn-group
-            - unless timer.map_url.blank?
-              = link_to timer.map_url, class: 'btn btn-success btn-sm', target: '_blank', title: 'Show map' do
-                %i.bi.bi-globe
+  .card.mb-3{ data: { controller: 'timer', timer_time_value: timer.starts_at.iso8601, timer_duration_value: timer.duration } }
+    .card-header.d-flex.justify-content-between
+      %h5.card-title.position-relative
+        = timer.name
+        - if timer.public?
+          %span.badge.bg-success.text-dark.ms-2e.rounded-pill Public
+      .menus
+        .btn-group.me-2
+          - unless timer.map_url.blank?
+            = link_to timer.map_url, class: 'btn btn-success btn-sm', target: '_blank', title: 'Show map' do
+              %i.bi.bi-globe
 
-            - if policy(timer).edit?
-              = link_to reset_timer_path(timer), class: 'btn btn-primary btn-sm', data: { turbo_method: :patch, turbo_confirm: 'Are you sure?', turbo_frame: dom_id(timer) }, title: 'Reset timer'  do
-                %i.bi.bi-arrow-clockwise
+          - if policy(timer).edit?
+            = link_to reset_timer_path(timer), class: 'btn btn-primary btn-sm', data: { turbo_method: :patch, turbo_confirm: 'Are you sure?', turbo_frame: dom_id(timer) }, title: 'Reset timer'  do
+              %i.bi.bi-arrow-clockwise
 
-          .btn-group
-            - if policy(timer).edit?
-              = link_to edit_timer_path(timer), class: 'btn btn-primary btn-sm', data: { turbo_frame: dom_id(timer) }, title: 'Edit timer'  do
-                %i.bi.bi-pencil
-            - if policy(timer).destroy?
-              = link_to timer, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?', turbo_frame: '_top' }, class: 'btn btn-danger btn-sm', title: 'Delete timer' do
-                %i.bi.bi-trash 
+        .btn-group
+          - if policy(timer).edit?
+            = link_to edit_timer_path(timer), class: 'btn btn-primary btn-sm', data: { turbo_frame: dom_id(timer) }, title: 'Edit timer'  do
+              %i.bi.bi-pencil
+          - if policy(timer).destroy?
+            = link_to timer, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?', turbo_frame: '_top' }, class: 'btn btn-danger btn-sm', title: 'Delete timer' do
+              %i.bi.bi-trash 
     .card-body
       %h1.text-center.time{ data: { timer_target: 'elapsed' } }
         = distance_of_time_in_words timer.elapsed
-      
-      %p.card-text
+
+      .card-text.text-center
         = timer.description
-    .card-footer
-      .row
-        .col-8
-          .card-text{ data: { timer_target: 'output' } }
-            = timer.starts_at
-          - unless timer.duration.blank?
-            .card-text
-              %strong Duration:
-              = distance_of_time_in_words(timer.duration)
-          - unless timer.map_url.blank?
-            .card-text
-              %strong X:
-              = timer.coord_x
-              &nbsp;
-              %strong Y:
-              = timer.coord_y
+      .card-text
+    .accordion.accordion-flush{ id: dom_id(timer, 'accordion') }
+     
+      .accordion-item
+        %h2.accordion-header
+          %button.accordion-button.collapsed{ type: 'button', data: { bs_toggle: 'collapse', bs_target: "##{dom_id(timer, 'details')}" } }
+            Details
+        .accordion-collapse.collapse{ id: dom_id(timer, 'details'), data: { bs_parent: '#'+dom_id(timer, 'accordion') } }
+          .accordion-body
+            %strong Starts:
+            = time_tag timer.starts_at, format: :long
+            - unless timer.duration.blank?
+              .card-text
+                %strong Duration:
+                = distance_of_time_in_words(timer.duration)
+            - unless timer.map_url.blank?
+              .card-text
+                %strong X:
+                = timer.coord_x
+                &nbsp;
+                %strong Y:
+                = timer.coord_y
+      
+      .accordion-item 
+        %h2.accordion-header 
+          %button.accordion-button.collapsed{ type: 'button', data: { bs_toggle: 'collapse', bs_target: "##{dom_id(timer, 'logs')}" } }
+            Logs
+        .accordion-collapse.collapse{ id: dom_id(timer, 'logs'), data: { bs_parent: '#'+dom_id(timer, 'accordion') } }
+          - if timer.timer_logs.any?
+            %ul.list-group.bottom-0.w-100.rounded-0
+              - timer.timer_logs.order(created_at: :desc).limit(5).each do |log|
+                %li.list-group-item
+                  = render partial: 'timers/timer_log', locals: { timer_log: log }
+    
+    .card-footer.d-flex.justify-content-between.align-items-end
+      .tags 
+        - timer.tag_list.each do |tag|
+          = link_to tag, timers_path(tag: tag), class: 'badge text-bg-primary me-1 fs-6', data: { turbo_frame: '_top' }
 
-          .tags 
-            - timer.tag_list.each do |tag|
-              = link_to tag, timers_path(tag: tag), class: 'badge text-bg-primary me-1 fs-6', data: { turbo_frame: '_top' }
-
-
-        .col-4.text-end
-          %p.card-text= link_to timer.user, timers_path(user: timer.user), data: { turbo_frame: '_top' }
+      %p.card-text= link_to timer.user, timers_path(user: timer.user), data: { turbo_frame: '_top' }
 

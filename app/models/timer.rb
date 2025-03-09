@@ -1,6 +1,6 @@
 class Timer < ApplicationRecord
   belongs_to :user
-
+  has_many :timer_logs, dependent: :destroy
   validates :name, presence: true
   validates :starts_at, presence: true
 

@@ -22,7 +22,7 @@ class TimersController < ApplicationController
   # GET /timers/new
   def new
     @timer = authorize Timer.new
-    @timer.starts_at = Time.zone.now
+    @timer.starts_at = Time.zone.now - 1.minute
   end
 
   # GET /timers/1/edit
@@ -30,7 +30,9 @@ class TimersController < ApplicationController
   end
 
   def reset
+    @timer.timer_logs.build(updated_by: current_user, previous_starts_at: @timer.starts_at, message: "Timer reset")
     @timer.starts_at = Time.now
+
     @timer.save!
 
     respond_to do |format|

@@ -1,0 +1,8 @@
+.ms-2.me-auto.justify-content-between
+    .fw-bold
+        = timer_log.message
+        by 
+        = timer_log.updated_by
+    
+    %strong Previous start:
+    = time_tag timer_log.previous_starts_at, format: :long

@@ -6,7 +6,6 @@ export default class extends Controller {
   static targets = ["input"]
 
   connect() {
-    console.log('connected, test')
   }
 
   inputTargetConnected(element) {
@@ -17,7 +16,6 @@ export default class extends Controller {
   }
 
   initializeSelect(element) {
-    console.log("tag connected");
     new Tagify(element, {
       allowNew: true,
       delimiters: ',',

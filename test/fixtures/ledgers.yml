@@ -8,6 +8,7 @@ one:
   action: MyString
   modifier: 9.99
   points: 1
+  created_by: admin
 
 two:
   player: two
@@ -17,3 +18,4 @@ two:
   action: MyString
   modifier: 9.99
   points: 1
+  created_by: admin

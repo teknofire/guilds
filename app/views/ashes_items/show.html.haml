@@ -13,7 +13,7 @@
         %p
           %b Description:
           .ms-4
-            != @ashes_item.description
+            = strip_tags @ashes_item.description
 
     .d-grid.gap-2
       = link_to 'Back', ashes_items_path, class: 'btn btn-secondary'

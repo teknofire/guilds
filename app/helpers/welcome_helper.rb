@@ -2,7 +2,7 @@ module WelcomeHelper
     def resource_name
         :user
     end
-    def resource 
+    def resource
         @resource ||= User.new
     end
     def resource_class

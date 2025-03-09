@@ -14,7 +14,7 @@ class AshesMobPolicy < ApplicationPolicy
   end
 
   def show?
-    user&.admin? || feature_access? 
+    user&.admin? || feature_access?
   end
 
   def create?
@@ -38,7 +38,7 @@ class AshesMobPolicy < ApplicationPolicy
   end
 
   def any?
-    show? 
+    show?
   end
 
   class Scope < ApplicationPolicy::Scope

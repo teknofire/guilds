@@ -7,13 +7,33 @@
 one:
   name: Testuser
   email: testuser@test.com
+  timezone: "UTC"
+  provider: "discord"
+  uid: "423456"
+  slug: test-user
 
 two:
   name: Testuser2
   email: testuser2@test.com
+  timezone: "UTC"
+  provider: "discord"
+  uid: "323456"
+  slug: test-user-2
+
+ledgermanager:
+  name: Testuser3
+  email: testuser3@test.com
+  manager: true
+  timezone: "UTC"
+  provider: "discord"
+  uid: "223456"
+  slug: test-user-3
 
 admin:
   name: Admin
   email: admin@test.com
   admin: true
   timezone: "UTC"
+  provider: "discord"
+  uid: "123456"
+  slug: admin

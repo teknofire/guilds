@@ -7,3 +7,7 @@ one:
 two:
   name: MyString
   modifier: 9.99
+
+deletable:
+  name: MyStringDeleteMe
+  modifier: 10

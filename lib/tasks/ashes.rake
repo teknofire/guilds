@@ -1,7 +1,7 @@
 namespace :ashes do
     def import_ashes_api(uri, model)
-        require 'json'
-        require 'net/http'
+        require "json"
+        require "net/http"
 
         url = URI(uri)
         query = Rack::Utils.parse_query(url.query)
@@ -15,7 +15,7 @@ namespace :ashes do
             items["data"].each do |item|
                 model.import(item)
             end
-            
+
             query["page"] += 1
             url.query = query.to_query
             items = JSON.parse Net::HTTP.get(url)
@@ -38,5 +38,5 @@ namespace :ashes do
     desc "Import mobs from AOC"
     task mobs: :environment do
         import_ashes_api("https://api.ashescodex.com/mobs?page=1", AshesMob)
-    end 
+    end
 end

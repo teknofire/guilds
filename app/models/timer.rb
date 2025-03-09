@@ -1,6 +1,6 @@
 class Timer < ApplicationRecord
   belongs_to :user
-
+  has_many :timer_logs, dependent: :destroy
   validates :name, presence: true
   validates :starts_at, presence: true
 
@@ -34,7 +34,7 @@ class Timer < ApplicationRecord
       [ "< 45 minutes", 45.minutes ],
       [ "< 30 minutes", 30.minutes ],
       [ "< 20 minutes", 20.minutes ],
-      [ "< 15 minutes", 15.minutes ],
+      [ "< 15 minutes", 15.minutes ]
     ]
   end
 

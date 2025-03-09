@@ -10,6 +10,7 @@ one:
   timezone: "UTC"
   provider: "discord"
   uid: "423456"
+  slug: test-user
 
 two:
   name: Testuser2
@@ -17,6 +18,7 @@ two:
   timezone: "UTC"
   provider: "discord"
   uid: "323456"
+  slug: test-user-2
 
 ledgermanager:
   name: Testuser3
@@ -25,6 +27,7 @@ ledgermanager:
   timezone: "UTC"
   provider: "discord"
   uid: "223456"
+  slug: test-user-3
 
 admin:
   name: Admin
@@ -33,3 +36,4 @@ admin:
   timezone: "UTC"
   provider: "discord"
   uid: "123456"
+  slug: admin

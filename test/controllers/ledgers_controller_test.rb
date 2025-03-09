@@ -21,7 +21,7 @@ class LedgersControllerTest < ActionDispatch::IntegrationTest
       post ledgers_url, params: { ledger: { action: @ledger.action, item_id: @ledger.item_id, modifier: @ledger.modifier, player_id: @ledger.player_id, points: @ledger.points, qty: @ledger.qty, rarity_id: @ledger.rarity_id } }
     end
 
-    assert_redirected_to ledger_url(Ledger.last)
+    assert_redirected_to player_url(@ledger.player)
   end
 
   test "should show ledger" do

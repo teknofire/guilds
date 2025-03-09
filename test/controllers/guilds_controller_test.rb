@@ -18,7 +18,7 @@ class GuildsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create guild" do
     assert_difference("Guild.count") do
-      post guilds_url, params: { guild: { name: @guild.name, parent_guild_id: guilds(:two) } }
+      post guilds_url, params: { guild: { name: 'Test Guild', parent_guild: guilds(:two) } }
     end
 
     assert_redirected_to guild_url(Guild.last)

@@ -8,7 +8,7 @@
       %th Quantity
       %th Loot Bucket
   %tbody.table-group-divider
-    - @ashes_mob.data["_loot"].each do |loot|
+    - @ashes_mob.data["_loot"]&.each do |loot|
       - loot["rewardDefContainers"].each do |drop| 
         - drop['rewards'].each do |reward|
           - reward['itemRewards'].each do |someitem|

@@ -6,8 +6,8 @@ class User < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  validates :timezone, presence: true
   validates :name, presence: true
+  validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.all.map(&:name), allow_nil: true
 
   has_many :user_features
   has_many :features, through: :user_features

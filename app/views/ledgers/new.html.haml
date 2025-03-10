@@ -1,7 +1,7 @@
 = turbo_frame_tag 'form' do
     .card.bg-dark
         .card-header
-            = @ledger.action.capitalize
+            = @ledger.action&.capitalize
             entry
         .card-body
             = render 'form'

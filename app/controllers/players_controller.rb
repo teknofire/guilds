@@ -55,6 +55,11 @@ class PlayersController < ApplicationController
       format.html { redirect_to players_path, status: :see_other, notice: "Player was successfully destroyed." }
       format.json { head :no_content }
     end
+  rescue ActiveRecord::InvalidForeignKey
+    respond_to do |format|
+      format.html { redirect_to players_path, status: :see_other, alert: "Player is referenced by something else." }
+      format.json { head :unprocessable_entity }
+    end
   end
 
   private

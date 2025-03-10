@@ -55,6 +55,11 @@ class GuildsController < ApplicationController
       format.html { redirect_to guilds_path, status: :see_other, notice: "Guild was successfully destroyed." }
       format.json { head :no_content }
     end
+  rescue ActiveRecord::InvalidForeignKey
+    respond_to do |format|
+      format.html { redirect_to guilds_path, status: :see_other, alert: "Guild is not empty." }
+      format.json { head :unprocessable_entity }
+    end
   end
 
   private

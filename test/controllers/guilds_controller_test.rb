@@ -3,6 +3,7 @@ require "test_helper"
 class GuildsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @guild = guilds(:one)
+    @guild_empty = guilds(:empty)
     sign_in_admin
   end
 
@@ -41,6 +42,14 @@ class GuildsControllerTest < ActionDispatch::IntegrationTest
 
   test "should destroy guild" do
     assert_difference("Guild.count", -1) do
+      delete guild_url(@guild_empty)
+    end
+
+    assert_redirected_to guilds_url
+  end
+
+  test "should not destroy guild" do
+    assert_no_difference("Guild.count") do
       delete guild_url(@guild)
     end
 

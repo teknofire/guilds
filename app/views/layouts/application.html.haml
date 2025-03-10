@@ -42,7 +42,7 @@
             - if policy(Timer).index?
               %li.nav-item
                 = link_to 'Timers', timers_path, class: "nav-link"
-            - if policy(User).index?
+            - if User&.admin?
               %li.nav-item.dropdown
                 = link_to 'Admin', '#', class: 'nav-link dropdown-toggle', data: { bs_toggle: 'dropdown' }, role: 'button'
                 %ul.dropdown-menu

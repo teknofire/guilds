@@ -34,7 +34,7 @@ module ApplicationHelper
         "legendary"
         when 6
         "artifact"
-        else 
+        else
         "common"
         end
     end

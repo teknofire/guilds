@@ -1,0 +1,29 @@
+
+.row 
+  .col-md-3
+    %h2= @team.name
+
+
+    .d-grid.align-items-start.mb-3
+      = link_to 'Add User', new_team_member_path(@team), class: 'btn btn-primary mb-3', data: { turbo_frame: dom_id(Member.new) }
+      = link_to 'Edit', edit_team_path(@team), class: 'btn btn-info mb-3'
+      = link_to 'Back', teams_path, class: 'btn btn-secondary'
+
+    
+    = turbo_frame_tag dom_id(Member.new)
+
+  .col-md-9
+    %h3 Members
+    %table.table.table-stripped.border
+      %thead
+        %tr
+          %th User
+          %th.text-end Actions
+
+      %tbody.table-group-divider
+        - @team.members.each do |member|
+          %tr
+            %td= link_to member.user, member.user
+            %td.text-end
+              .btn-group
+                = link_to 'Remove', team_member_path(@team, member), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger'

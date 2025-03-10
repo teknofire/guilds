@@ -14,8 +14,8 @@ class MembersTest < ApplicationSystemTestCase
     visit members_url
     click_on "New member"
 
-    fill_in "Guild", with: @member.guild_id
-    fill_in "Name", with: @member.name
+    fill_in "Team", with: @member.team_id
+    fill_in "User", with: @member.user_id
     click_on "Create Member"
 
     assert_text "Member was successfully created"
@@ -26,8 +26,8 @@ class MembersTest < ApplicationSystemTestCase
     visit member_url(@member)
     click_on "Edit this member", match: :first
 
-    fill_in "Guild", with: @member.guild_id
-    fill_in "Name", with: @member.name
+    fill_in "Team", with: @member.team_id
+    fill_in "User", with: @member.user_id
     click_on "Update Member"
 
     assert_text "Member was successfully updated"

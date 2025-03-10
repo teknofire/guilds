@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_10_040156) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_10_214918) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -78,6 +78,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_10_040156) do
     t.index ["item_id"], name: "index_ledgers_on_item_id"
     t.index ["player_id"], name: "index_ledgers_on_player_id"
     t.index ["rarity_id"], name: "index_ledgers_on_rarity_id"
+  end
+
+  create_table "members", force: :cascade do |t|
+    t.bigint "team_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_members_on_team_id"
+    t.index ["user_id"], name: "index_members_on_user_id"
   end
 
   create_table "players", force: :cascade do |t|
@@ -269,6 +278,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_10_040156) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
+  create_table "teams", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "slug"
+  end
+
   create_table "timer_logs", force: :cascade do |t|
     t.bigint "timer_id", null: false
     t.bigint "updated_by_id", null: false
@@ -327,6 +343,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_10_040156) do
   add_foreign_key "ledgers", "players"
   add_foreign_key "ledgers", "rarities"
   add_foreign_key "ledgers", "users", column: "created_by_id"
+  add_foreign_key "members", "teams"
+  add_foreign_key "members", "users"
   add_foreign_key "players", "guilds"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade

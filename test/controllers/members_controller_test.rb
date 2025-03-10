@@ -3,46 +3,38 @@ require "test_helper"
 class MembersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @member = members(:one)
-  end
-
-  test "should get index" do
-    get members_url
-    assert_response :success
+    @team = @member.team
+    sign_in_admin
   end
 
   test "should get new" do
-    get new_member_url
+    get new_team_member_url(@team)
     assert_response :success
   end
 
   test "should create member" do
     assert_difference("Member.count") do
-      post members_url, params: { member: { team_id: @member.team_id, user_id: @member.user_id } }
+      post team_members_url(@team), params: { member: { user_id: @member.user_id } }
     end
 
-    assert_redirected_to member_url(Member.last)
-  end
-
-  test "should show member" do
-    get member_url(@member)
-    assert_response :success
+    assert_redirected_to team_url(@team)
   end
 
   test "should get edit" do
-    get edit_member_url(@member)
+    get edit_team_member_url(@team, @member)
     assert_response :success
   end
 
   test "should update member" do
-    patch member_url(@member), params: { member: { team_id: @member.team_id, user_id: @member.user_id } }
-    assert_redirected_to member_url(@member)
+    patch team_member_url(@team, @member), params: { member: { team_id: @member.team_id, user_id: @member.user_id } }
+    assert_redirected_to team_url(@team)
   end
 
   test "should destroy member" do
     assert_difference("Member.count", -1) do
-      delete member_url(@member)
+      delete team_member_url(@team, @member)
     end
 
-    assert_redirected_to members_url
+    assert_redirected_to team_url(@team)
   end
 end

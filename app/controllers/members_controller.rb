@@ -10,6 +10,7 @@ class MembersController < ApplicationController
 
   # GET /members/1/edit
   def edit
+    @available = User.not_in_team(@team)
   end
 
   # POST /members or /members.json

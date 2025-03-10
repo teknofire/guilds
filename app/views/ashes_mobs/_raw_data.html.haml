@@ -1,0 +1,7 @@
+.border-start.border-end.border-bottom.p-2
+  - @ashes_mob.data.each do |key, value|
+    %div
+      %h4= key
+    %div
+      != ap value, plain: true, index: false
+

@@ -2,8 +2,8 @@
 
 one:
   slug: MyString
-  data:
+  data: { "_loot": {} }
 
 two:
   slug: MyString2
-  data:
+  data: { "_loot": {} }

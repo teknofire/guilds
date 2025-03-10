@@ -14,15 +14,24 @@
           = link_to @ashes_mob.name, "https://ashescodex.com/db/mob/#{@ashes_mob.slug}", target: '_blank'
     .d-grid
       = link_to 'Back', ashes_mobs_path, class: 'btn btn-primary'
-  - if current_user.admin?
-    .col-md-8
-      .card 
-        %h4.card-header Raw Data:
-        .card-body
-          - @ashes_mob.data.each do |key, value|
-            .row
-              .col-md-3.text-end
-                %strong= key
-              .col-md-9
-                != ap value, plain: true, index: false
+  .col-md-8 
+    %ul.class.nav.nav-tabs
+      %li.nav-item 
+        %button#instances-tab.nav-link.active{ data: { bs_toggle: 'tab', bs_target: '#instances' }, type: 'button' }
+          Instances
+      %li.nav-item
+        %button#drops-tab.nav-link{ data: { bs_toggle: 'tab', bs_target: '#drops' }, type: 'button' }
+          Drops
+      - if current_user.admin?
+        %li.nav-item 
+          %button#raw-tab.nav-link{ data: { bs_toggle: 'tab', bs_target: '#rawdata' }, type: 'button' }
+            Raw Data
+    .tab-content
+      #instances.tab-pane.fade.show.active{ role: 'tabpanel', tabindex:"0" }
+        = render 'instances'
+      #drops.tab-pane.fade{ role: 'tabpanel', tabindex:"0" }
+        = render 'drops'
+      - if current_user.admin?
+        #rawdata.tab-pane.fade{ role: 'tabpanel', tabindex:"0" }
+          = render 'raw_data'
 

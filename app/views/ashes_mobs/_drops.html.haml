@@ -1,0 +1,39 @@
+%table.table.table-stripped.border-start.border-end.border-bottom{ data: { controller: 'datatables' } }
+  %thead 
+    %tr 
+      %th Drop 
+      %th Rarity
+      %th Drop Method 
+      %th Drop Predicate
+      %th Quantity
+      %th Loot Bucket
+  %tbody.table-group-divider
+    - @ashes_mob.data["_loot"]&.each do |loot|
+      - loot["rewardDefContainers"].each do |drop| 
+        - drop['rewards'].each do |reward|
+          - reward['itemRewards'].each do |someitem|
+            - item = someitem.dig('item', 'item')
+            %tr{ class: "bg-#{rarity_class(item['minRarity'])}" }
+              %td 
+                = link_to ashes_item_path(item['guid']) do 
+                  %nobr= item['itemName']
+              %td 
+                = item['minRarity']
+                \-
+                = item['maxRarity']
+              %td
+                = drop['grantMethod']
+              %td{ title: drop['grantPredicate']['expression'] }
+                - unless is_int(drop['grantPredicate']['expression'])
+                  - unless drop['grantPredicate']['expression'].blank?
+                    %i.bi.bi-exclamation-circle
+                - else 
+                  = drop['grantPredicate']['expression'].to_i
+              %td{ title: someitem['quantity']['expression'] }
+                - unless is_int(someitem['quantity']['expression'])
+                  - unless someitem['quantity']['expression'].blank?
+                    %i.bi.bi-exclamation-circle 
+                - else
+                  = someitem['quantity']['expression'].to_i
+              %td
+                = loot['name']

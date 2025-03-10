@@ -9,6 +9,13 @@ export default class extends Controller {
   }
 
   connect() {
+    if (this.hasTableTarget) {
+      this.tableTargets.forEach((element) => {
+        this.initializeDatatable(element)
+      })
+    } else {
+      this.initializeDatatable(this.element)
+    }
   }
 
   tableTargetConnected(element) {

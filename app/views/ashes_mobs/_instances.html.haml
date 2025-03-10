@@ -1,0 +1,22 @@
+%table.table.table-stripped.border-start.border-end.border-bottom
+    %thead
+        %tr
+            %th Location
+            %th Level Range
+            %th Respawn Time
+    %tbody.table-group-divider
+    - @ashes_mob.population_instances.each do |pop|
+        %tr
+            %td
+                = link_to codex_map_url(pop.dig('_location', 'x'), pop.dig('_location', 'y')), target: '_blank' do
+                    X: 
+                    = pop.dig('_location', 'x')
+                    %br/
+                    Y: 
+                    = pop.dig('_location', 'y')
+            %td
+                = pop['nPCLevelMin']
+                \-
+                = pop['nPCLevelMax']
+            %td
+                = pop['respawnTime']

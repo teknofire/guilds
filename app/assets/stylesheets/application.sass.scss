@@ -8,3 +8,62 @@
     padding: 0px;
     margin: 0px 0px 0px 5px;
 }
+
+:root {
+    --common: rgb(150, 150, 150);
+    --uncommon: rgb(36, 108, 15);
+    --rare: rgb(100, 175, 200);
+    --heroic: rgb(134, 95, 8);
+    --epic: rgb(80, 13, 172);
+    --legendary: rgb(200, 115, 30);
+    --artifact: rgb(177, 20, 20);
+}
+
+.bg-common {
+    a {
+        color: var(--common) !important;
+        font-weight: bold;
+    }
+}
+
+.bg-uncommon {
+    a {
+        color: var(--uncommon) !important;
+        font-weight: bold;
+    }
+}
+
+.bg-rare {
+    a {
+        color: var(--rare) !important;
+        font-weight: bold;
+    }
+}
+
+.bg-heroic {
+    a {
+        color: var(--heroic) !important;
+        font-weight: bold;
+    }
+}
+
+.bg-epic {
+    a {
+        color: var(--epic) !important;
+        font-weight: bold;
+    }
+}
+
+.bg-legendary {
+    a {
+        color: var(--legendary) !important;
+        font-weight: bold;
+    }
+}
+
+.bg-artifact {
+    a {
+        color: var(--artifact) !important;
+        font-weight: bold;
+    }
+}

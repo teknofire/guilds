@@ -12,6 +12,11 @@ class User < ApplicationRecord
   has_many :user_features
   has_many :features, through: :user_features
 
+  has_many :members
+  has_many :teams, through: :members
+
+  scope :not_in_team, ->(team) { where.not(id: team.users) }
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email

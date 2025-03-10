@@ -20,3 +20,8 @@
                 %ul
                     - @user.features.each do |feature|
                         %li= feature.name.titleize
+        .mb-3
+            %h4 Teams
+            %ul
+                - @user.teams.each do |team|
+                    %li= link_to team, team

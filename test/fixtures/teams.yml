@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: TeamOne
+  slug: team_one
+
+two:
+  name: TeamTwo
+  slug: team_two

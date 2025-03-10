@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :teams do
+    resources :members, only: [ :new, :edit, :create, :update, :destroy ]
+  end
   resources :ashes_mobs, path: "/ashes/mobs"
   resources :ashes_items, path: "/ashes/items"
 

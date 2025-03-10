@@ -1,0 +1,15 @@
+= form_with model: [@team, @member] do |f|
+  - if @member.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@member.errors.count, "error")} prohibited this member from being saved:"
+      %ul
+        - @member.errors.full_messages.each do |message|
+          %li= message
+
+  .mb-3
+    = f.label :user, class: 'form-label'
+    = f.collection_select :user_id, @available, :id, :name, { prompt: "Select a user to add" }, { class: 'form-select' }
+  .actions.d-grid
+    .btn-group
+      = link_to 'Back', :back, class: 'btn btn-secondary'
+      = f.submit 'Save', class: 'btn btn-primary'

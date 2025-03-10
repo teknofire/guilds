@@ -1,0 +1,27 @@
+%h1 Listing teams
+
+.row 
+  .col-md-3.d-grid.align-items-start
+    = link_to 'New Team', new_team_path, class: 'btn btn-primary', data: { turbo_frame: 'new_team' }
+
+    .mt-3
+      = turbo_frame_tag 'new_team'
+
+  .col-md-9
+    %table.table.table-stripped.border
+      %thead
+        %tr
+          %th Name
+          %th Members
+          %th.text-end Actions
+
+      %tbody.table-group-divider
+        - @teams.each do |team|
+          %tr
+            %td= team.name
+            %td= team.members.count
+            %td.text-end
+              .btn-group
+                = link_to 'Show', team, class: 'btn btn-primary'
+                = link_to 'Edit', edit_team_path(team), class: 'btn btn-secondary'
+                = link_to 'Destroy', team, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger'

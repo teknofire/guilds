@@ -7,7 +7,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   # end
 
   # test "should get create" do
-  #   post 
+  #   post
   #   assert_response :success
   # end
 end

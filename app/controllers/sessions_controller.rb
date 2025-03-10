@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
   def after_sign_in_path_for(resource_or_scope)
     if user.timezone.blank?
       edit_user_path(resource_or_scopea)
-    else 
+    else
       stored_location_for(resource_or_scope) || root_path
     end
   end

@@ -1,5 +1,5 @@
 class AshesItem < ApplicationRecord
-    store_accessor :data, :name, :itemName, :description, :typeId, :subType, :professionTag, :rarityMin, :rarityMax, :inventoryFilterType
+    store_accessor :data, :name, :itemName, :description, :typeId, :subType, :professionTag, :minRarity, :maxRarity, :inventoryFilterType
 
     extend FriendlyId
     friendly_id :guid, use: :slugged

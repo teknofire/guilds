@@ -7,7 +7,7 @@
         = text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search...'
     .col-5
       .input-group.mb-3
-        = select_tag :type, options_for_select(AshesItem.inventoryFilterTypes, params[:inventoryFilterType]), include_blank: true, class: 'form-select'
+        = select_tag :type, options_for_select(AshesItem.inventoryFilterTypes, params[:type]), include_blank: true, class: 'form-select'
     .col-1.text-end
       = button_tag 'Search', class: 'btn btn-primary', type: 'submit'
 %div
@@ -26,7 +26,8 @@
           - cache ashes_item do 
             %tr
               %td= ashes_item.guid
-              %td= ashes_item.itemName
+              %td{ class: "bg-#{rarity_class(ashes_item.minRarity)}" }
+                = link_to ashes_item.itemName, ashes_item
               %td= ashes_item.inventoryFilterType
               %td= ashes_item.subType
               %td= link_to 'Show', ashes_item

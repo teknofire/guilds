@@ -4,15 +4,29 @@
       %h4.card-header
         %b= @ashes_item.itemName
       .card-body
-        %p
-          %b Guid:
-          = @ashes_item.guid
-        %p
-          %b Name: 
-          = @ashes_item.itemName
-        %p
-          %b Description:
-          .ms-4
+        .row 
+          .col-md-4
+            %b Guid:
+          .col
+            = @ashes_item.guid
+        .row
+          .col-md-4
+            %b Name: 
+          .col
+            = @ashes_item.itemName
+        .row
+          .col-md-4
+            %b Rarity:
+          .col
+            %span{ class: "bg-" + rarity_name(@ashes_item.minRarity) }
+              = rarity_name(@ashes_item.minRarity).titleize
+            \-
+            %span{ class: "bg-" + rarity_name(@ashes_item.maxRarity) }
+              = rarity_name(@ashes_item.maxRarity).titleize
+        .row
+          .col-md-4
+            %b Description:
+          .col
             = strip_tags @ashes_item.description
 
     .d-grid.gap-2

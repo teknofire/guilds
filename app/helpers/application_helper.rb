@@ -31,11 +31,12 @@ module ApplicationHelper
         when 4
         "heroic"
         when 5
-        "legendary"
+        "epic"
         when 6
-        "artifact"
+        "legendary"
         else
         "common"
         end
     end
+    alias_method :rarity_name, :rarity_class
 end

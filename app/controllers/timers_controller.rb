@@ -1,5 +1,5 @@
 class TimersController < ApplicationController
-  before_action :set_timer, only: %i[ show edit update destroy reset ]
+  before_action :set_timer, only: %i[ show edit update destroy reset share ]
 
   # GET /timers or /timers.json
   def index
@@ -75,6 +75,20 @@ class TimersController < ApplicationController
     end
   end
 
+  def share
+    @timer.team_ids = resolve_team_ids(@timer, timer_team_id_params["team_ids"])
+
+    respond_to do |format|
+      if @timer.save
+        format.html { redirect_to @timer, notice: "Timer was successfully updated." }
+        format.json { render :show, status: :ok, location: @timer }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @timer.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # DELETE /timers/1 or /timers/1.json
   def destroy
     @timer.destroy!
@@ -94,5 +108,18 @@ class TimersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def timer_params
       params.expect(timer: [ :name, :starts_at, :public, :description, :duration, :coord_x, :coord_y, :tag_list ])
+    end
+
+    def timer_team_id_params
+      params.expect(timer: [ team_ids: [] ])
+    end
+
+    def resolve_team_ids(timer, timer_ids)
+      # list of teams that are on the timer the user doesn't have access to so they don't get deleted
+      other_team_ids = timer.teams.where.not(teams: { id: current_user.team_ids }).pluck(:id)
+      # get the list of team ids the user has access to. This is to prevent users from adding teams they don't have access to
+      valid_team_ids = current_user.teams.where(id: timer_ids).pluck(:id)
+
+      other_team_ids | valid_team_ids
     end
 end

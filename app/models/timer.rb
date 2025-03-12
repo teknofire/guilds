@@ -6,6 +6,10 @@ class Timer < ApplicationRecord
 
   acts_as_taggable_on :tags
 
+  has_many :shares, as: :shareable, class_name: "TeamShare", dependent: :destroy
+  has_many :teams, through: :shares, inverse_of: :timers
+  accepts_nested_attributes_for :teams, allow_destroy: true
+
   def elapsed
     (Time.now - self.starts_at).seconds
   end

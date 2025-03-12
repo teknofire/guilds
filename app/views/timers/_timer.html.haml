@@ -1,7 +1,7 @@
 = turbo_frame_tag dom_id(timer) do 
   .card.mb-3{ data: { controller: 'timer', timer_time_value: timer.starts_at.iso8601, timer_duration_value: timer.duration } }
     .card-header.d-flex.justify-content-between
-      %h5.card-title.position-relative
+      %h5.card-title
         = timer.name
         - if timer.public?
           %span.badge.bg-success.text-dark.ms-2e.rounded-pill Public
@@ -14,6 +14,20 @@
           - if policy(timer).edit?
             = link_to reset_timer_path(timer), class: 'btn btn-primary btn-sm', data: { turbo_method: :patch, turbo_confirm: 'Are you sure?', turbo_frame: dom_id(timer) }, title: 'Reset timer'  do
               %i.bi.bi-arrow-clockwise
+        
+        - if current_user.teams.any?
+          .d-inline-flex.dropdown.me-2
+            %button{ type: 'button', class: 'btn btn-primary btn-sm dropdown-toggle', data: { bs_toggle: 'dropdown', bs_auto_close: 'outside' } }
+              %i.bi.bi-people 
+            = form_with model: [:share, timer], data: { turbo_frame: dom_id(timer) }, class: 'dropdown-menu p-4' do |f|
+              .text-nowrap 
+                %h5 Share with teams
+                = f.collection_check_boxes :team_ids, current_user.teams.where(teams: { id: current_user.team_ids }), :id, :name do |b|
+                  .mb-3
+                    = b.check_box class: 'form-check-input'
+                    = b.label class: 'form-check-label'
+                .text-end
+                  = f.submit 'Save', class: 'btn btn-primary btn-sm'
 
         .btn-group
           - if policy(timer).edit?
@@ -37,8 +51,13 @@
             Details
         .accordion-collapse.collapse{ id: dom_id(timer, 'details'), data: { bs_parent: '#'+dom_id(timer, 'accordion') } }
           .accordion-body
-            %strong Starts:
-            = time_tag timer.starts_at, format: :long
+            - if timer.teams.any?
+              .card-text
+                %string Shared:
+                != timer.teams.map{ |team| link_to team, team, data: { turbo_frame: "_top" } }.join(', ')
+            .card-text
+              %strong Starts:
+              = time_tag timer.starts_at, format: :long
             - unless timer.duration.blank?
               .card-text
                 %strong Duration:

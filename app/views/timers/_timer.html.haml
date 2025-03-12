@@ -51,25 +51,7 @@
             Details
         .accordion-collapse.collapse{ id: dom_id(timer, 'details'), data: { bs_parent: '#'+dom_id(timer, 'accordion') } }
           .accordion-body
-            - if timer.teams.any?
-              .card-text
-                %string Shared:
-                != timer.teams.map{ |team| link_to team, team, data: { turbo_frame: "_top" } }.join(', ')
-            .card-text
-              %strong Starts:
-              = time_tag timer.starts_at, format: :long
-            - unless timer.duration.blank?
-              .card-text
-                %strong Duration:
-                = distance_of_time_in_words(timer.duration)
-            - unless timer.map_url.blank?
-              .card-text
-                %strong X:
-                = timer.coord_x
-                &nbsp;
-                %strong Y:
-                = timer.coord_y
-      
+            = render 'timers/details', timer: timer     
       .accordion-item 
         %h2.accordion-header 
           %button.accordion-button.collapsed{ type: 'button', data: { bs_toggle: 'collapse', bs_target: "##{dom_id(timer, 'logs')}" } }

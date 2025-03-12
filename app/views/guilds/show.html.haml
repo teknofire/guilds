@@ -1,20 +1,32 @@
-%p#notice= notice
+%h1= @guild.name
 
-%p
-  %b Name:
-  = @guild.name
-- if @guild.parent_guild.present?
-  %p
-    %b Parent Guild:
-    = link_to @guild.parent_guild.name, @guild.parent_guild
-- if @guild.child_guilds.any?
-  %p
-    %b Child Guilds:
-    %ul
-      - @guild.child_guilds.each do | child |
-        %li= link_to child.name, child
+.row 
+  .col-md-4
+    .d-grid.gap-2
+      = link_to 'Edit', edit_guild_path(@guild), class: 'btn btn-info'
+      = link_to 'Back', guilds_path, class: 'btn btn-secondary'
+  .col
+    - if @guild.parent_guild.present?
+      %p
+        %b Parent Guild:
+        = link_to @guild.parent_guild.name, @guild.parent_guild
+    - if @guild.child_guilds.any?
+      %p
+        %b Child Guilds:
+        %ul
+          - @guild.child_guilds.each do | child |
+            %li= link_to child.name, child
 
-
-= link_to 'Edit', edit_guild_path(@guild)
-\|
-= link_to 'Back', guilds_path
+    %h2 Members
+    %table.table.table-stripped.border
+      %thead
+        %tr
+          %th Name
+          %th.text-end Actions
+      %tbody.table-group-divider
+        - @guild.players.each do |player|
+          %tr
+            %td= link_to player.name, player
+            %td.text-end
+              .btn-group
+                = link_to 'Remove', leave_guild_player_path(player), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger'

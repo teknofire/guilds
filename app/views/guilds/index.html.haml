@@ -16,13 +16,10 @@
   %tbody
     - @guilds.each do |guild|
       %tr
-        %td= guild.name
+        %td.d-grid= link_to guild.name, guild
         %td= guild.parent_guild&.name
         %td= guild.players.count
         - if policy(:guild).any?
           %td.text-end
             .btn-group
-              = link_to 'Show', guild, class: 'btn btn-primary' if policy(guild).show?
-              = link_to 'Edit', edit_guild_path(guild), class: 'btn btn-secondary' if policy(guild).update?
-              = link_to 'Destroy', guild, turbo_method: :delete, turbo_data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' if policy(guild).destroy?
 

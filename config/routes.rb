@@ -29,6 +29,9 @@ Rails.application.routes.draw do
         get "withdraw"
       end
     end
+    member do
+      delete "leave_guild"
+    end
   end
   resources :members
   resources :guilds

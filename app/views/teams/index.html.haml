@@ -13,14 +13,10 @@
         %tr
           %th Name
           %th Members
-          %th.text-end Actions
 
       %tbody.table-group-divider
         - @teams.each do |team|
           %tr
-            %td= team.name
+            %td.d-grid 
+              = link_to team.name, team
             %td= team.members.count
-            %td.text-end
-              .btn-group
-                = link_to 'Show', team, class: 'btn btn-primary'
-                = link_to 'Destroy', team, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger'

@@ -42,7 +42,7 @@ class TimerPolicy < ApplicationPolicy
     def resolve
       if user&.admin?
         scope.all
-      else 
+      else
         scope.where(public: true).or(scope.where(user: user)).or(scope.where(id: user.shared_timer_ids))
       end
     end

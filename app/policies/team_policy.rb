@@ -14,7 +14,7 @@ class TeamPolicy < ApplicationPolicy
     def resolve
       if user&.admin?
         scope.all
-      else 
+      else
         scope.where(members: { user_id: user.id })
       end
     end

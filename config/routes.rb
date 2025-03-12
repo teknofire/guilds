@@ -3,8 +3,8 @@ Rails.application.routes.draw do
     resources :members, only: [ :new, :edit, :create, :update, :destroy ]
   end
   resources :ashes_mobs, path: "/ashes/mobs"
-  resources :ashes_items, path: "/ashes/items" do 
-    member do 
+  resources :ashes_items, path: "/ashes/items" do
+    member do
       post "import"
     end
   end

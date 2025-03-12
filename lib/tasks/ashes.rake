@@ -41,9 +41,9 @@ namespace :ashes do
     end
 
     task tag_items: :environment do
-        Item.all.each do |item| 
+        Item.all.each do |item|
             item.source = AshesItem.where("data->>'itemName' = ?", item.name).first
-            item.save! 
+            item.save!
         end
     end
 end

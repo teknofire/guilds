@@ -19,7 +19,7 @@ class AshesItemsController < ApplicationController
     @pagy, @ashes_items = pagy_arel(@search)
   end
 
-  def import 
+  def import
     if @ashes_item.item.nil?
       if @item = Item.create(name: @ashes_item.data["itemName"], source: @ashes_item)
         respond_to do |format|

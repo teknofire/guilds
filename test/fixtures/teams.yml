@@ -7,3 +7,7 @@ one:
 two:
   name: TeamTwo
   slug: team_two
+
+deleteable:
+  name: DeleteMe
+  slug: delete_me

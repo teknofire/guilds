@@ -7,7 +7,7 @@ class Team < ApplicationRecord
     has_many :members, dependent: :destroy
     has_many :users, through: :members
 
-    has_many :team_shares
+    has_many :team_shares, dependent: :destroy
     has_many :timers, through: :team_shares, source: :shareable, source_type: "Timer"
 
     def to_s

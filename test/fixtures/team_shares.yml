@@ -2,10 +2,10 @@
 
 one:
   team: one
-  shared: one
-  shared_type: Shared
+  shareable: one
+  shareable_type: Shared
 
 two:
   team: two
-  shared: two
-  shared_type: Shared
+  shareable: two
+  shareable_type: Shared

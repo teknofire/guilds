@@ -30,7 +30,7 @@ class TimerPolicy < ApplicationPolicy
   end
 
   def share?
-    user == record.user
+    user&.admin? || user == record.user
   end
 
   def shared_with?
@@ -40,7 +40,11 @@ class TimerPolicy < ApplicationPolicy
   class Scope < ApplicationPolicy::Scope
     # NOTE: Be explicit about which records you allow access to!
     def resolve
-      scope.where(public: true).or(scope.where(user: user)).or(scope.where(id: user.shared_timer_ids))
+      if user&.admin?
+        scope.all
+      else 
+        scope.where(public: true).or(scope.where(user: user)).or(scope.where(id: user.shared_timer_ids))
+      end
     end
   end
 end

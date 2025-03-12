@@ -3,12 +3,19 @@
   .col-md-3
     %h2= @team.name
 
-
     .d-grid.align-items-start.mb-3
-      = link_to 'Add User', new_team_member_path(@team), class: 'btn btn-primary mb-3', data: { turbo_frame: dom_id(Member.new) }
-      = link_to 'Edit', edit_team_path(@team), class: 'btn btn-info mb-3'
-      = link_to 'Back', teams_path, class: 'btn btn-secondary'
-
+      = link_to new_team_member_path(@team), class: 'btn btn-primary mb-3', data: { turbo_frame: dom_id(Member.new) } do
+        %i.bi.bi-plus
+        Add User
+      = link_to edit_team_path(@team), class: 'btn btn-info mb-3' do 
+        %i.bi.bi-pencil
+        Edit
+      = link_to team_path(@team), class: 'btn btn-danger mb-3', data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } do 
+        %i.bi.bi-trash
+        Delete
+      = link_to teams_path, class: 'btn btn-secondary' do 
+        %i.bi.bi-arrow-left
+        Back
     
     = turbo_frame_tag dom_id(Member.new)
 

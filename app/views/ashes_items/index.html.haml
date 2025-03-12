@@ -30,7 +30,11 @@
                 = link_to ashes_item.itemName, ashes_item
               %td= ashes_item.inventoryFilterType
               %td= ashes_item.subType
-              %td= link_to 'Show', ashes_item
+              %td.text-end
+                .btn-group
+                  = link_to 'View', ashes_item, class: 'btn btn-primary'
+                  - if policy(ashes_item).import?
+                    = link_to 'Import', import_ashes_item_path(ashes_item), class: 'btn btn-info', data: { turbo_method: :post }
 .row 
   .col
     .float-end 

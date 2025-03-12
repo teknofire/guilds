@@ -1,5 +1,5 @@
 class PlayersController < ApplicationController
-  before_action :set_player, only: %i[ show edit update destroy ]
+  before_action :set_player, only: %i[ show edit update destroy leave_guild ]
 
   # GET /players or /players.json
   def index
@@ -17,6 +17,20 @@ class PlayersController < ApplicationController
 
   # GET /players/1/edit
   def edit
+  end
+
+  def leave_guild
+    @guild = @player.guild
+
+    respond_to do |format|
+      if @player.update(guild: nil)
+        format.html { redirect_to @guild, notice: "Player was removed from guild" }
+        format.json { render :show, status: :created, location: @player }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @player.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # POST /players or /players.json

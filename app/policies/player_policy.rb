@@ -25,6 +25,10 @@ class PlayerPolicy < ApplicationPolicy
     user&.admin? || user&.manager?
   end
 
+  def leave_guild?
+    user&.admin?
+  end
+
   class Scope < ApplicationPolicy::Scope
     # NOTE: Be explicit about which records you allow access to!
     # def resolve

@@ -14,6 +14,7 @@ class User < ApplicationRecord
 
   has_many :members
   has_many :teams, through: :members
+  has_many :shared_timers, through: :teams, source: :timers
 
   scope :not_in_team, ->(team) { where.not(id: team.users) }
 

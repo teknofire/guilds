@@ -11,11 +11,11 @@
             = link_to timer.map_url, class: 'btn btn-success btn-sm', target: '_blank', title: 'Show map' do
               %i.bi.bi-globe
 
-          - if policy(timer).edit?
+          - if policy(timer).reset?
             = link_to reset_timer_path(timer), class: 'btn btn-primary btn-sm', data: { turbo_method: :patch, turbo_confirm: 'Are you sure?', turbo_frame: dom_id(timer) }, title: 'Reset timer'  do
               %i.bi.bi-arrow-clockwise
         
-        - if current_user.teams.any?
+        - if policy(timer).share?
           .d-inline-flex.dropdown.me-2
             %button{ type: 'button', class: 'btn btn-primary btn-sm dropdown-toggle', data: { bs_toggle: 'dropdown', bs_auto_close: 'outside' } }
               %i.bi.bi-people 
@@ -24,8 +24,8 @@
                 %h5 Share with teams
                 = f.collection_check_boxes :team_ids, current_user.teams.where(teams: { id: current_user.team_ids }), :id, :name do |b|
                   .mb-3
-                    = b.check_box class: 'form-check-input'
-                    = b.label class: 'form-check-label'
+                    = b.check_box class: 'form-check-input', id: dom_id(timer, b.object)
+                    = b.label class: 'form-check-label', for: dom_id(timer, b.object)
                 .text-end
                   = f.submit 'Save', class: 'btn btn-primary btn-sm'
 

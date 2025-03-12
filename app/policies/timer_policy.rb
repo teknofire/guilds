@@ -14,11 +14,11 @@ class TimerPolicy < ApplicationPolicy
   end
 
   def update?
-    user&.admin? || user == record.user
+    user.admin? || user == record.user
   end
 
   def reset?
-    update?
+    update? || shared_with?
   end
 
   def create?
@@ -30,13 +30,17 @@ class TimerPolicy < ApplicationPolicy
   end
 
   def share?
-    user&.admin? || user == record.user
+    user == record.user
+  end
+
+  def shared_with?
+    record.shared_members.include?(user)
   end
 
   class Scope < ApplicationPolicy::Scope
     # NOTE: Be explicit about which records you allow access to!
     def resolve
-      scope.where(public: true).or(scope.where(user: user))
+      scope.where(public: true).or(scope.where(user: user)).or(scope.where(id: user.shared_timer_ids))
     end
   end
 end

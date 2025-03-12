@@ -11,11 +11,11 @@
             = link_to timer.map_url, class: 'btn btn-success btn-sm', target: '_blank', title: 'Show map' do
               %i.bi.bi-globe
 
-          - if policy(timer).edit?
+          - if policy(timer).reset?
             = link_to reset_timer_path(timer), class: 'btn btn-primary btn-sm', data: { turbo_method: :patch, turbo_confirm: 'Are you sure?', turbo_frame: dom_id(timer) }, title: 'Reset timer'  do
               %i.bi.bi-arrow-clockwise
         
-        - if current_user.teams.any?
+        - if policy(timer).share?
           .d-inline-flex.dropdown.me-2
             %button{ type: 'button', class: 'btn btn-primary btn-sm dropdown-toggle', data: { bs_toggle: 'dropdown', bs_auto_close: 'outside' } }
               %i.bi.bi-people 
@@ -24,8 +24,8 @@
                 %h5 Share with teams
                 = f.collection_check_boxes :team_ids, current_user.teams.where(teams: { id: current_user.team_ids }), :id, :name do |b|
                   .mb-3
-                    = b.check_box class: 'form-check-input'
-                    = b.label class: 'form-check-label'
+                    = b.check_box class: 'form-check-input', id: dom_id(timer, b.object)
+                    = b.label class: 'form-check-label', for: dom_id(timer, b.object)
                 .text-end
                   = f.submit 'Save', class: 'btn btn-primary btn-sm'
 
@@ -51,25 +51,7 @@
             Details
         .accordion-collapse.collapse{ id: dom_id(timer, 'details'), data: { bs_parent: '#'+dom_id(timer, 'accordion') } }
           .accordion-body
-            - if timer.teams.any?
-              .card-text
-                %string Shared:
-                != timer.teams.map{ |team| link_to team, team, data: { turbo_frame: "_top" } }.join(', ')
-            .card-text
-              %strong Starts:
-              = time_tag timer.starts_at, format: :long
-            - unless timer.duration.blank?
-              .card-text
-                %strong Duration:
-                = distance_of_time_in_words(timer.duration)
-            - unless timer.map_url.blank?
-              .card-text
-                %strong X:
-                = timer.coord_x
-                &nbsp;
-                %strong Y:
-                = timer.coord_y
-      
+            = render 'timers/details', timer: timer     
       .accordion-item 
         %h2.accordion-header 
           %button.accordion-button.collapsed{ type: 'button', data: { bs_toggle: 'collapse', bs_target: "##{dom_id(timer, 'logs')}" } }

@@ -3,7 +3,7 @@ class TeamsController < ApplicationController
 
   # GET /teams or /teams.json
   def index
-    @teams = authorize Team.all
+    @teams = authorize policy_scope(Team)
   end
 
   # GET /teams/1 or /teams/1.json

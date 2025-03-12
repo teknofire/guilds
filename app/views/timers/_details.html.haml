@@ -1,0 +1,23 @@
+.card-text
+    %strong Starts:
+    = time_tag timer.starts_at, format: :long
+
+- if timer.teams.any?
+    .card-text
+    %string Shared with:
+    - timer.teams.each do |team|
+        .badge.text-bg-secondary.fs-6
+            = team.name
+
+- unless timer.duration.blank?
+    .card-text
+    %strong Duration:
+    = distance_of_time_in_words(timer.duration)
+
+- unless timer.map_url.blank?
+    .card-text
+    %strong X:
+    = timer.coord_x
+    &nbsp;
+    %strong Y:
+    = timer.coord_y

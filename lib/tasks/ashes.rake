@@ -39,4 +39,11 @@ namespace :ashes do
     task mobs: :environment do
         import_ashes_api("https://api.ashescodex.com/mobs?page=1", AshesMob)
     end
+
+    task tag_items: :environment do
+        Item.all.each do |item| 
+            item.source = AshesItem.where("data->>'itemName' = ?", item.name).first
+            item.save! 
+        end
+    end
 end

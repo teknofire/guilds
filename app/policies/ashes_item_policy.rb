@@ -28,6 +28,10 @@ class AshesItemPolicy < ApplicationPolicy
     false
   end
 
+  def import?
+    user&.admin? && record.item.nil?
+  end
+
   def edit?
     false
   end

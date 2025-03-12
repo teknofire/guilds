@@ -4,16 +4,16 @@
       %h4.card-header
         %b= @ashes_item.itemName
       .card-body
-        .row 
-          .col-md-4
-            %b Guid:
-          .col
-            = @ashes_item.guid
         .row
           .col-md-4
             %b Name: 
           .col
             = @ashes_item.itemName
+        .row 
+          .col-md-4 
+            %b Type:
+          .col
+            = @ashes_item._summary
         .row
           .col-md-4
             %b Rarity:
@@ -23,14 +23,15 @@
             \-
             %span{ class: "bg-" + rarity_name(@ashes_item.maxRarity) }
               = rarity_name(@ashes_item.maxRarity).titleize
-        .row
-          .col-md-4
-            %b Description:
-          .col
-            = strip_tags @ashes_item.description
+        %p.pt-4
+          = strip_tags @ashes_item.description
 
     .d-grid.gap-2
-      = link_to 'Back', ashes_items_path, class: 'btn btn-secondary'
+      - if policy(@ashes_item).import?
+        = link_to 'Import', import_ashes_item_path(@ashes_item), class: 'btn btn-primary', data: { turbo_method: :post }
+      = link_to ashes_items_path, class: 'btn btn-secondary' do 
+        %i.bi.bi-arrow-left
+        Back
 
   .col-md-8
     .card

@@ -1,12 +1,26 @@
-%p#notice= notice
 
-%p
-  %b Name:
-  = @item.name
-%p
-  %b Modifier:
-  = @item.modifier
+.row
+  .col-md-3
+    .d-grid.mt-3
+      - if policy(@item).update?
+        = link_to edit_item_path(@item), class: 'btn btn-info mb-3' do 
+          %i.bi.bi-pencil
+          Edit
+      - if policy(@item).destroy?
+        = link_to @item, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger mb-3' do 
+          %i.bi.bi-trash
+          Delete
+      = link_to items_path, class: 'btn btn-secondary' do 
+        %i.bi.bi-arrow-left
+        Back
 
-= link_to 'Edit', edit_item_path(@item)
-\|
-= link_to 'Back', items_path
+  .col-md-9
+    %h1= @item.name
+
+    %p
+      %b Modifier:
+      = @item.modifier
+
+    - if @item.source
+      %b Source:
+      = link_to @item.source, @item.source

@@ -1,7 +1,7 @@
 class AshesItemsController < ApplicationController
   include Pagy::Backend
 
-  before_action :set_ashes_item, only: %i[ show edit update destroy ]
+  before_action :set_ashes_item, only: %i[ show edit update destroy import ]
 
   # GET /ashes_items or /ashes_items.json
   def index
@@ -17,6 +17,23 @@ class AshesItemsController < ApplicationController
       )
     end
     @pagy, @ashes_items = pagy_arel(@search)
+  end
+
+  def import
+    if @ashes_item.item.nil?
+      if @item = Item.create(name: @ashes_item.data["itemName"], source: @ashes_item)
+        respond_to do |format|
+          if @item.save
+            format.html { redirect_to edit_item_path(@item), notice: "Ashes item was successfully imported." }
+            format.json { render :show, status: :created, location: @item }
+          else
+            format.html { render :new, status: :unprocessable_entity }
+            format.json { render json: @item.errors, status: :unprocessable_entity }
+          end
+        end
+
+      end
+    end
   end
 
   # GET /ashes_items/1 or /ashes_items/1.json

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_10_214918) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_11_014847) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -278,6 +278,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_10_214918) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
+  create_table "team_shares", force: :cascade do |t|
+    t.bigint "team_id", null: false
+    t.string "shareable_type", null: false
+    t.bigint "shareable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shareable_type", "shareable_id"], name: "index_team_shares_on_shareable"
+    t.index ["team_id"], name: "index_team_shares_on_team_id"
+  end
+
   create_table "teams", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -353,6 +363,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_10_214918) do
   add_foreign_key "solid_queue_recurring_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "taggings", "tags"
+  add_foreign_key "team_shares", "teams"
   add_foreign_key "timer_logs", "timers"
   add_foreign_key "timer_logs", "users", column: "updated_by_id"
   add_foreign_key "timers", "users"

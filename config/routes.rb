@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   resources :timers do
     member do
       patch "reset"
+      patch "share"
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

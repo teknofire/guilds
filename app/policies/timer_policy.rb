@@ -29,6 +29,10 @@ class TimerPolicy < ApplicationPolicy
     user&.admin? || user == record.user
   end
 
+  def share?
+    user&.admin? || user == record.user
+  end
+
   class Scope < ApplicationPolicy::Scope
     # NOTE: Be explicit about which records you allow access to!
     def resolve

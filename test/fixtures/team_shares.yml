@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  team: one
+  shared: one
+  shared_type: Shared
+
+two:
+  team: two
+  shared: two
+  shared_type: Shared

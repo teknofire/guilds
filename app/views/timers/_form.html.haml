@@ -27,7 +27,6 @@
     .col
       = f.label :duration, class: 'form-label'
       = f.select :duration, Timer.available_durations, { include_blank: true }, class: 'form-select'
-
   .row.mb-3 
     .col 
       = f.label :coord_x, class: 'form-label'

@@ -80,6 +80,6 @@ gem "cssbundling-rails", "~> 1.4"
 
 gem "awesome_print", "~> 1.9"
 
-gem "pagy", "~> 9.3"
+gem "pagy", "~> 9.4"
 
 gem "acts-as-taggable-on", "~> 12.0"
